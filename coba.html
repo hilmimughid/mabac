@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SPK Metode MABAC</title>
+    <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">\
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
@@ -69,26 +69,119 @@
     </nav>
     <div style="padding-top:40px">
         <h2 class="text-center">Input Kriteria</h2>
+        <h2>Form Generator</h2>
 
-        <p>Masukkan Jumlah Kriteria</p>
-        <input type="number" id="jumlahKriteria" value="">
-        <button onclick="inputKriteria()">Ok</button>
+        <p>Masukkan jumlah form yang ingin dibuat:</p>
 
-        <div id="formKriteria">
+        <input type="number" id="jumlahForm" value="">
+        <button onclick="buatForm()">Buat Form</button>
+
+        <div id="formContainer">
             <!-- Form akan ditambahkan di sini -->
         </div>
 
-        <form id="submitKriteria" style="display: none;" onsubmit="return tabelKriteria();">
+        <form id="submitForm" style="display: none;" onsubmit="return tampilkanData();">
             <input type="submit" value="Submit">
         </form>
 
         <div id="tabelContainer">
             <!-- Tabel akan ditambahkan di sini -->
         </div>
-
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        function buatForm() {
+            var jumlah = document.getElementById("jumlahForm").value;
+            var container = document.getElementById("formContainer");
+            container.innerHTML = "";
+
+            for (var i = 0; i < jumlah; i++) {
+                var form = document.createElement("form");
+                form.id = "form" + i;
+                var label1 = document.createElement("label");
+                label1.innerHTML = "Form " + (i + 1) + " - Input 1: ";
+                var input1 = document.createElement("input");
+                input1.type = "text";
+                input1.name = "input1";
+                var br1 = document.createElement("br");
+                var label2 = document.createElement("label");
+                label2.innerHTML = "Form " + (i + 1) + " - Input 2: ";
+                var select = document.createElement("select");
+                select.name = "input2";
+                var option1 = document.createElement("option");
+                option1.value = "1";
+                option1.text = "Opsi 1";
+                var option2 = document.createElement("option");
+                option2.value = "2";
+                option2.text = "Opsi 2";
+                select.appendChild(option1);
+                select.appendChild(option2);
+                var br2 = document.createElement("br");
+                var label3 = document.createElement("label");
+                label3.innerHTML = "Form " + (i + 1) + " - Input 3: ";
+                var input3 = document.createElement("input");
+                input3.type = "text";
+                input3.name = "input3";
+                var br3 = document.createElement("br");
+                form.appendChild(label1);
+                form.appendChild(input1);
+                form.appendChild(br1);
+                form.appendChild(label2);
+                form.appendChild(select);
+                form.appendChild(br2);
+                form.appendChild(label3);
+                form.appendChild(input3);
+                form.appendChild(br3);
+                container.appendChild(form);
+            }
+
+            // Tampilkan form submit
+            document.getElementById("submitForm").style.display = "block";
+        }
+
+        function tampilkanData() {
+            var jumlah = document.getElementById("jumlahForm").value;
+            var tabelContainer = document.getElementById("tabelContainer");
+            tabelContainer.innerHTML = "";
+
+            var tabel = document.createElement("table");
+            var thead = document.createElement("thead");
+            var tr = document.createElement("tr");
+            var th1 = document.createElement("th");
+            th1.innerHTML = "Input 1";
+            var th2 = document.createElement("th");
+            th2.innerHTML = "Input 2";
+            var th3 = document.createElement("th");
+            th3.innerHTML = "Input 3";
+            tr.appendChild(th1);
+            tr.appendChild(th2);
+            tr.appendChild(th3);
+            thead.appendChild(tr);
+            tabel.appendChild(thead);
+
+            var tbody = document.createElement("tbody");
+            for (var i = 0; i < jumlah; i++) {
+                var form = document.getElementById("form" + i);
+                var tr = document.createElement("tr");
+                var td1 = document.createElement("td");
+                td1.innerHTML = form.input1.value;
+                var td2 = document.createElement("td");
+                td2.innerHTML = form.input2.value;
+                var td3 = document.createElement("td");
+                td3.innerHTML = form.input3.value;
+                tr.appendChild(td1);
+                tr.appendChild(td2);
+                tr.appendChild(td3);
+                tbody.appendChild(tr);
+            }
+            tabel.appendChild(tbody);
+
+            tabelContainer.appendChild(tabel);
+
+            // Mencegah form submit dikirim
+            return false;
+        }
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
