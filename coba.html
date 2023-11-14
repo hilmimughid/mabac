@@ -69,90 +69,116 @@
     </nav>
     <div style="padding-top:40px">
         <h2 class="text-center">Input Kriteria</h2>
-        <h2>Form Generator</h2>
 
-        <p>Masukkan jumlah form yang ingin dibuat:</p>
+        <p>Masukkan Jumlah Kriteria</p>
+        <input type="number" id="jumlahKriteria" value="">
+        <button onclick="inputKriteria()">Ok</button>
 
-        <input type="number" id="jumlahForm" value="">
-        <button onclick="buatForm()">Buat Form</button>
-
-        <div id="formContainer">
+        <div id="formKriteria">
             <!-- Form akan ditambahkan di sini -->
         </div>
 
-        <form id="submitForm" style="display: none;" onsubmit="return tampilkanData();">
+        <form id="submitKriteria" style="display: none;" onsubmit="return tampilTabelKriteria();">
             <input type="submit" value="Submit">
         </form>
 
-        <div id="tabelContainer">
+        <div id="tabelKriteria">
             <!-- Tabel akan ditambahkan di sini -->
         </div>
+
+        <h2 class="text-center">Input Alternatif</h2>
+
+        <p>Masukkan Jumlah Alternatif</p>
+        <input type="number" id="jumlahAlternatif" value="">
+        <button onclick="inputAlternatif()">Ok</button>
+
+        <div id="formAlternatif">
+            <!-- Form akan ditambahkan di sini -->
+        </div>
+
+        <form id="submitAlternatif" style="display: none;" onsubmit="return tampilTabelAlternatif();">
+            <input type="submit" value="Submit">
+        </form>
+
+        <div id="tabelAlternatif">
+            <!-- Tabel akan ditambahkan di sini -->
+        </div>
+
     </div>
 
     <script>
-        function buatForm() {
-            var jumlah = document.getElementById("jumlahForm").value;
-            var container = document.getElementById("formContainer");
+        function inputKriteria() {
+            var jumlahKriteria = document.getElementById("jumlahKriteria").value;
+            var container = document.getElementById("formKriteria");
             container.innerHTML = "";
 
-            for (var i = 0; i < jumlah; i++) {
-                var form = document.createElement("form");
-                form.id = "form" + i;
-                var label1 = document.createElement("label");
-                label1.innerHTML = "Form " + (i + 1) + " - Input 1: ";
-                var input1 = document.createElement("input");
-                input1.type = "text";
-                input1.name = "input1";
+            for (var i = 0; i < jumlahKriteria; i++) {
+                var formKriteria = document.createElement("form");
+                formKriteria.id = "formKriteria" + i;
+                var labelNamaKriteria = document.createElement("label");
+                labelNamaKriteria.innerHTML = "Pilih Kriteria: ";
+                var inputNamaKriteria = document.createElement("select");
+                inputNamaKriteria.name = "inputNamaKriteria";
+                for (var j = 0; j < jumlahKriteria; j++) {
+                    var option = document.createElement("option");
+                    option.value = "C" + (j + 1);
+                    option.text = "C" + (j + 1);
+                    inputNamaKriteria.appendChild(option);
+                }
                 var br1 = document.createElement("br");
-                var label2 = document.createElement("label");
-                label2.innerHTML = "Form " + (i + 1) + " - Input 2: ";
-                var select = document.createElement("select");
-                select.name = "input2";
+                var labelJenisKriteria = document.createElement("label");
+                labelJenisKriteria.innerHTML = "Pilih Jenis Kriteria: ";
+                var inputJenisKriteria = document.createElement("select");
+                inputJenisKriteria.name = "inputJenisKriteria";
                 var option1 = document.createElement("option");
-                option1.value = "1";
-                option1.text = "Opsi 1";
+                option1.value = "Benefit";
+                option1.text = "Benefit";
                 var option2 = document.createElement("option");
-                option2.value = "2";
-                option2.text = "Opsi 2";
-                select.appendChild(option1);
-                select.appendChild(option2);
+                option2.value = "Cost";
+                option2.text = "Cost";
+                inputJenisKriteria.appendChild(option1);
+                inputJenisKriteria.appendChild(option2);
                 var br2 = document.createElement("br");
-                var label3 = document.createElement("label");
-                label3.innerHTML = "Form " + (i + 1) + " - Input 3: ";
-                var input3 = document.createElement("input");
-                input3.type = "text";
-                input3.name = "input3";
+                var labelNilaiKriteria = document.createElement("label");
+                labelNilaiKriteria.innerHTML = "Bobot Kriteria: ";
+                var inputNilaiKriteria = document.createElement("input");
+                inputNilaiKriteria.type = "text";
+                inputNilaiKriteria.name = "inputNilaiKriteria";
                 var br3 = document.createElement("br");
-                form.appendChild(label1);
-                form.appendChild(input1);
-                form.appendChild(br1);
-                form.appendChild(label2);
-                form.appendChild(select);
-                form.appendChild(br2);
-                form.appendChild(label3);
-                form.appendChild(input3);
-                form.appendChild(br3);
-                container.appendChild(form);
+                formKriteria.appendChild(labelNamaKriteria);
+                formKriteria.appendChild(inputNamaKriteria);
+                formKriteria.appendChild(br1);
+                formKriteria.appendChild(labelJenisKriteria);
+                formKriteria.appendChild(inputJenisKriteria);
+                formKriteria.appendChild(br2);
+                formKriteria.appendChild(labelNilaiKriteria);
+                formKriteria.appendChild(inputNilaiKriteria);
+                formKriteria.appendChild(br3);
+                container.appendChild(formKriteria);
             }
 
             // Tampilkan form submit
-            document.getElementById("submitForm").style.display = "block";
+            document.getElementById("submitKriteria").style.display = "block";
         }
 
-        function tampilkanData() {
-            var jumlah = document.getElementById("jumlahForm").value;
-            var tabelContainer = document.getElementById("tabelContainer");
+        function tampilTabelKriteria() {
+            var jumlah = document.getElementById("jumlahKriteria").value;
+            var tabelContainer = document.getElementById("tabelKriteria");
             tabelContainer.innerHTML = "";
 
             var tabel = document.createElement("table");
+            tabel.style.border = "1px solid black";  // Menambahkan border pada tabel
             var thead = document.createElement("thead");
             var tr = document.createElement("tr");
             var th1 = document.createElement("th");
-            th1.innerHTML = "Input 1";
+            th1.innerHTML = "Kriteria";
+            th1.style.border = "1px solid black";  // Menambahkan border pada header tabel
             var th2 = document.createElement("th");
-            th2.innerHTML = "Input 2";
+            th2.innerHTML = "Jenis";
+            th2.style.border = "1px solid black";  // Menambahkan border pada header tabel
             var th3 = document.createElement("th");
-            th3.innerHTML = "Input 3";
+            th3.innerHTML = "Bobot";
+            th3.style.border = "1px solid black";  // Menambahkan border pada header tabel
             tr.appendChild(th1);
             tr.appendChild(th2);
             tr.appendChild(th3);
@@ -161,14 +187,17 @@
 
             var tbody = document.createElement("tbody");
             for (var i = 0; i < jumlah; i++) {
-                var form = document.getElementById("form" + i);
+                var formKriteria = document.getElementById("formKriteria" + i);
                 var tr = document.createElement("tr");
                 var td1 = document.createElement("td");
-                td1.innerHTML = form.input1.value;
+                td1.innerHTML = formKriteria.inputNamaKriteria.value;
+                td1.style.border = "1px solid black";  // Menambahkan border pada data tabel
                 var td2 = document.createElement("td");
-                td2.innerHTML = form.input2.value;
+                td2.innerHTML = formKriteria.inputJenisKriteria.value;
+                td2.style.border = "1px solid black";  // Menambahkan border pada data tabel
                 var td3 = document.createElement("td");
-                td3.innerHTML = form.input3.value;
+                td3.innerHTML = formKriteria.inputNilaiKriteria.value;
+                td3.style.border = "1px solid black";  // Menambahkan border pada data tabel
                 tr.appendChild(td1);
                 tr.appendChild(td2);
                 tr.appendChild(td3);
