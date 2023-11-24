@@ -41,18 +41,38 @@
             <!-- Nav Item - Tables -->
             <li class="nav-item active">
                 <a class="nav-link" href="kriteria.html">
-                    <i class="bi bi-table"></i>
+                    <i class="bi bi-plus-square-fill"></i>
                     <span>Kriteria</span></a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link" href="alternatif.html">
-                    <i class="bi bi-table"></i>
+                    <i class="bi bi-plus-square-fill"></i>
                     <span>Alternatif</span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="matriksX.html">
+                    <i class="bi bi-table"></i>
+                    <span>Matriks Keputusan Awal (X)</span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="matriksV.html">
+                    <i class="bi bi-table"></i>
+                    <span>Matriks Keputusan Tertimbang (V)</span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="matriksG.html">
+                    <i class="bi bi-table"></i>
+                    <span>Matriks Area Perkiraan Batas (G)</span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="matriksQ.html">
+                    <i class="bi bi-table"></i>
+                    <span>Matriks Jarak Alternatif (Q)</span></a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link" href="peringkat.html">
                     <i class="bi bi-trophy-fill"></i>
-                    <span>Hasil Peringkat</span></a>
+                    <span>Peringkat</span></a>
             </li>
 
             <!-- Divider -->
@@ -98,7 +118,8 @@
                                     cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Kriteria</th>
+                                            <th class="width-5">Kode</th>
+                                            <th>Nama</th>
                                             <th>Jenis</th>
                                             <th class="width-10">Bobot</th>
                                             <th class="width-10">Aksi</th>
@@ -108,7 +129,7 @@
                                     </tbody>
                                 </table>
                                 <button type="button" class="btn btn-danger float-right ml-3" data-toggle="modal"
-                                    data-target="#modalHapusSemua">Hapus Semua</button>
+                                    data-target="#modalHapusSemuaKriteria">Hapus Semua</button>
                                 <button type="button" class="btn btn-primary float-right" data-toggle="modal"
                                     data-target="#modalTambahKriteria">Tambah Kriteria</button>
                             </div>
@@ -120,8 +141,8 @@
             <!-- End of Main Content -->
 
             <!-- Modal Edit Kriteria -->
-            <div class="modal fade" id="modalEditKriteria" data-backdrop="static" data-keyboard="false" tabindex="-1"
-                aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal fade" id="modalEditKriteria" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -133,41 +154,47 @@
                         <div class="modal-body">
                             <form>
                                 <div class="form-group row">
-                                    <label for="inputNamaKriteria" class="col-sm-4 col-form-label">Nama Kriteria</label>
+                                    <label for="editKodeKriteria" class="col-sm-4 col-form-label">Kode Kriteria</label>
                                     <div class="col-sm-5">
-                                        <input type="text" class="form-control" id="inputNamaKriteria">
+                                        <input type="text" class="form-control" id="editKodeKriteria">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="inputJenisKriteria" class="col-sm-4 col-form-label">Jenis
+                                    <label for="editNamaKriteria" class="col-sm-4 col-form-label">Nama Kriteria</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" id="editNamaKriteria">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="editJenisKriteria" class="col-sm-4 col-form-label">Jenis
                                         Kriteria</label>
                                     <div class="col-sm-5">
-                                        <select class="custom-select" id="inputJenisKriteria">
+                                        <select class="custom-select" id="editJenisKriteria">
                                             <option value="benefit" selected>Benefit</option>
                                             <option value="cost">Cost</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="inputBobotKriteria" class="col-sm-4 col-form-label">Bobot
+                                    <label for="editBobotKriteria" class="col-sm-4 col-form-label">Bobot
                                         Kriteria</label>
                                     <div class="col-sm-5">
-                                        <input type="number" class="form-control" id="inputBobotKriteria">
+                                        <input type="number" class="form-control" id="editBobotKriteria">
                                     </div>
                                 </div>
                             </form>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                            <button type="button" class="btn btn-success">Simpan</button>
+                            <button type="button" class="btn btn-success" id="buttonEditKriteria">Simpan</button>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- Modal Hapus Satu -->
-            <div class="modal fade" id="modalHapusSatu" data-backdrop="static" data-keyboard="false" tabindex="-1"
-                aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal fade" id="modalHapusSatuKriteria" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -181,15 +208,15 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                            <button type="button" class="btn btn-danger">Yakin</button>
+                            <button type="button" class="btn btn-danger" id="buttonHapusSatuKriteria">Yakin</button>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- Modal Tambah Kriteria -->
-            <div class="modal fade" id="modalTambahKriteria" data-backdrop="static" data-keyboard="false" tabindex="-1"
-                aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal fade" id="modalTambahKriteria" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -201,9 +228,17 @@
                         <div class="modal-body">
                             <form id="tambahKriteria">
                                 <div class="form-group row">
+                                    <label for="inputKodeKriteria" class="col-sm-4 col-form-label">Kode Kriteria</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" id="inputKodeKriteria" name="kode"
+                                            required>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
                                     <label for="inputNamaKriteria" class="col-sm-4 col-form-label">Nama Kriteria</label>
                                     <div class="col-sm-5">
-                                        <input type="text" class="form-control" id="inputNamaKriteria" name="nama" required>
+                                        <input type="text" class="form-control" id="inputNamaKriteria" name="nama"
+                                            required>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -220,23 +255,25 @@
                                     <label for="inputBobotKriteria" class="col-sm-4 col-form-label">Bobot
                                         Kriteria</label>
                                     <div class="col-sm-5">
-                                        <input type="number" class="form-control" id="inputBobotKriteria" name="bobot" required>
+                                        <input type="number" class="form-control" id="inputBobotKriteria" name="bobot"
+                                            required>
                                     </div>
                                 </div>
                             </form>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                <button type="button" class="btn btn-success" onclick="submitKriteria()">Simpan</button>
+                                <button type="button" class="btn btn-success" id="buttonTambahKriteria"
+                                    onclick="submitKriteria()">Simpan</button>
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
 
             <!-- Modal Hapus Semua -->
-            <div class="modal fade" id="modalHapusSemua" data-backdrop="static" data-keyboard="false" tabindex="-1"
-                aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal fade" id="modalHapusSemuaKriteria" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -250,7 +287,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                            <button type="button" class="btn btn-danger">Yakin</button>
+                            <button type="button" class="btn btn-danger" id="buttonHapusSemuaKriteria">Yakin</button>
                         </div>
                     </div>
                 </div>
@@ -275,6 +312,9 @@
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
