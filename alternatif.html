@@ -87,6 +87,7 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
+
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
@@ -100,11 +101,13 @@
                                         <tr>
                                             <th>Alternatif</th>
                                             <th>Kriteria</th>
-                                            <th class="width-10">Penilaian</th>
-                                            <th class="width-10">Aksi</th>
+                                        </tr>
+                                        <tr id="matrixNilai">
+                                            <td></td>
                                         </tr>
                                     </thead>
-                                    <tr>
+                                    <tbody id="matrixNilaiBody">
+                                    <!-- <tr >
                                         <td>A1</td>
                                         <td>C1</td>
                                         <td>10</td>
@@ -113,13 +116,13 @@
                                             <button type="button" class="btn btn-danger"><i class="bi bi-trash3-fill"
                                                     data-toggle="modal" data-target="#modalHapusSatu"></i></button>
                                         </td>
-                                    </tr>
+                                    </tr> -->
                                     </tbody>
                                 </table>
-                                <button type="button" class="btn btn-danger float-right ml-3" data-toggle="modal"
-                                    data-target="#modalHapusSemua">Hapus Semua</button>
+                                <button type="button" class="btn btn-secondary float-right ml-3" data-toggle="modal"
+                                    data-target="#modalIsiAlternatif">Tambah Alternatif</button>
                                 <button type="button" class="btn btn-primary float-right" data-toggle="modal"
-                                    data-target="#modalTambahAlternatif">Tambah Alternatif</button>
+                                    data-target="#modalTambahAlternatif">Isi Nilai Alternatif</button>
                             </div>
                         </div>
                     </div>
@@ -174,6 +177,7 @@
                 </div>
             </div>
 
+
             <!-- Modal Hapus Satu -->
             <div class="modal fade" id="modalHapusSatu" data-backdrop="static" data-keyboard="false" tabindex="-1"
                 aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -196,74 +200,82 @@
                 </div>
             </div>
 
+
             <!-- Modal Tambah Alternatif -->
             <div class="modal fade" id="modalTambahAlternatif" data-backdrop="static" data-keyboard="false"
                 tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title font-weight-bold" id="staticBackdropLabel">Form Tambah Alternatif
+                            <h5 class="modal-title font-weight-bold" id="staticBackdropLabel">Form Isi Nilai Alternatif
                             </h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form>
+                            <form id="isiAlternatif">
                                 <div class="form-group row">
-                                    <label for="inputNamaKriteria" class="col-sm-4 col-form-label">Nama
-                                        Alternatif</label>
+                                    <label for="inputNamaKriteria" class="col-sm-4 col-form-label">Nama</label>
                                     <div class="col-sm-5">
-                                        <input type="text" class="form-control" id="inputNamaKriteria">
+                                        <select class="custom-select" id="formNamaAlternatif" name="nama" required>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="inputJenisKriteria" class="col-sm-4 col-form-label">
                                         Kriteria</label>
                                     <div class="col-sm-5">
-                                        <select class="custom-select" id="inputJenisKriteria">
-                                            <option value="c1" selected>C1</option>
-                                            <option value="c2">C2</option>
+                                        <select class="custom-select" id="formJenisKriteria" name="kriteria" required>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="inputBobotKriteria" class="col-sm-4 col-form-label">Penilaian</label>
                                     <div class="col-sm-5">
-                                        <input type="number" class="form-control" id="inputBobotKriteria">
+                                        <input type="number" class="form-control" id="inputBobotKriteria" name="nilai" required>
                                     </div>
                                 </div>
                             </form>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                            <button type="button" class="btn btn-success">Simpan</button>
+                            <button type="button" class="btn btn-success" onclick="submitAlternatif()">Simpan</button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Modal Hapus Semua -->
-            <div class="modal fade" id="modalHapusSemua" data-backdrop="static" data-keyboard="false" tabindex="-1"
+            <!-- Modal Isi Alternatif -->
+            <div class="modal fade" id="modalIsiAlternatif" data-backdrop="static" data-keyboard="false" tabindex="-1"
                 aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="staticBackdropLabel">Peringatan!</h5>
+                            <h5 class="modal-title" id="staticBackdropLabel">Form Tambah Alternatif</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="modal-body">
-                            <p>Apakah anda yakin ingin menghapus semua alternatif?</p>
+                         <div class="modal-body">
+                            <form id="tambahAlternatif">
+                                <div class="form-group row">
+                                    <label for="inputNamaKriteria" class="col-sm-4 col-form-label">Nama
+                                        Alternatif</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" id="inputNamaKriteria" name="nama" required>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                            <button type="button" class="btn btn-danger">Yakin</button>
+                            <button type="button" class="btn btn-success" onclick="submitTambahAlternatif()">Simpan</button>
                         </div>
                     </div>
                 </div>
             </div>
+
 
             <!-- Footer -->
             <footer class="sticky-footer bg-white">
@@ -274,6 +286,8 @@
                 </div>
             </footer>
             <!-- End of Footer -->
+
+            
         </div>
         <!-- End of Content Wrapper -->
     </div>
@@ -290,6 +304,64 @@
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
+
+    <script type="module" src="./js/alternatif/app.js"></script>
+
+    <script>
+        const submitAlternatif = async () => {
+            try {
+      const formData = new FormData(document.querySelector('#isiAlternatif'))
+
+const value = {
+id_alternatif: formData.get('nama'),
+id_kriteria: formData.get('kriteria'),
+nilai: parseInt(formData.get('nilai')),
+}
+
+    const reponse = await fetch('http://localhost:8000/api/matrix', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(value),
+    })
+
+    if (!reponse.ok) {
+      throw new Error({ message: reponse.statusText })
+    }
+
+    const data = await reponse.json()
+    return { message: 'post data success', data: data }
+  } catch (error) {
+    console.log(error)
+  }
+}
+    
+    const submitTambahAlternatif = async () => {
+        try {
+            const formData = new FormData(document.querySelector("#tambahAlternatif"))
+        const value = {
+            nama : formData.get('nama')
+        }
+
+        const reponse = await fetch('http://localhost:8000/api/alternatif', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+    },
+        body: JSON.stringify(value),
+    })
+
+        if (!reponse.ok) {
+        throw new Error({ message: reponse.statusText })
+        const data = await reponse.json()
+    return { message: 'post data success', data: data }
+    }
+        } catch (error) {
+                console.log(error)
+        }
+    }
+    </script>
 </body>
 
 </html>
