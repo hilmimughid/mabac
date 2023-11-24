@@ -23,8 +23,6 @@ document.addEventListener('DOMContentLoaded', async function () {
   const dataKriteria = await ambilKriteria()
   const dataMatrix = await ambilMatrix()
 
-  const data = groupByAlternatif(dataMatrix)
-
   dataKriteria.forEach((item) => {
     const td = document.createElement('td')
     td.textContent = item.nama
@@ -41,21 +39,14 @@ document.addEventListener('DOMContentLoaded', async function () {
     selectNama.appendChild(option)
   })
 
-  dataAlternatif.forEach((item, index) => {
+  dataMatrix.forEach((item) => {
     const row = document.createElement('tr')
-    const id = item.id
-    const values = data.find((item) => item.id_alternatif === id)
-    console.log('values', values)
-
-    if (values) {
-      const td = createData(item.nama)
+    const td = createData(item.nama_alternatif)
+    row.appendChild(td)
+    item.data.forEach((itemTd) => {
+      const td = createData(itemTd.nilai)
       row.appendChild(td)
-      values.data.forEach((item) => {
-        const td = createData(item.nilai)
-        td.textContent = item.nilai
-        row.appendChild(td)
-      })
-    }
+    })
     tBody.appendChild(row)
   })
 })
