@@ -118,7 +118,8 @@
                                     cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Alternatif</th>
+                                            <th class="width-12">Kode Alternatif</th>
+                                            <th>Nama Alternatif</th>
                                             <th>Kriteria</th>
                                             <th class="width-10">Penilaian</th>
                                             <th class="width-10">Aksi</th>
@@ -126,18 +127,19 @@
                                     </thead>
                                     <tr>
                                         <td>A1</td>
+                                        <td>Hilmi</td>
                                         <td>C1</td>
                                         <td>10</td>
-                                        <td><button type="button" class="btn btn-warning"><i class="bi bi-pencil-square"
+                                        <td><button type="button" class="btn btn-warning mr-2"><i class="bi bi-pencil-square"
                                                     data-toggle="modal" data-target="#modalEditAlternatif"></i></button>
                                             <button type="button" class="btn btn-danger"><i class="bi bi-trash3-fill"
-                                                    data-toggle="modal" data-target="#modalHapusSatu"></i></button>
+                                                    data-toggle="modal" data-target="#modalHapusSatuAlternatif"></i></button>
                                         </td>
                                     </tr>
                                     </tbody>
                                 </table>
                                 <button type="button" class="btn btn-danger float-right ml-3" data-toggle="modal"
-                                    data-target="#modalHapusSemua">Hapus Semua</button>
+                                    data-target="#modalHapusSemuaAlternatif">Hapus Semua</button>
                                 <button type="button" class="btn btn-primary float-right" data-toggle="modal"
                                     data-target="#modalTambahAlternatif">Tambah Alternatif</button>
                             </div>
@@ -149,8 +151,8 @@
             <!-- End of Main Content -->
 
             <!-- Modal Edit Alternatif -->
-            <div class="modal fade" id="modalEditAlternatif" data-backdrop="static" data-keyboard="false" tabindex="-1"
-                aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal fade" id="modalEditAlternatif" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -162,41 +164,48 @@
                         <div class="modal-body">
                             <form>
                                 <div class="form-group row">
-                                    <label for="inputNamaKriteria" class="col-sm-4 col-form-label">Nama
+                                    <label for="editKodeAlternatif" class="col-sm-4 col-form-label">Kode
                                         Alternatif</label>
                                     <div class="col-sm-5">
-                                        <input type="text" class="form-control" id="inputNamaKriteria">
+                                        <input type="text" class="form-control" id="editKodeAlternatif">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="inputJenisKriteria" class="col-sm-4 col-form-label">
+                                    <label for="editNamaAlternatif" class="col-sm-4 col-form-label">Nama
+                                        Alternatif</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" id="editNamaAlternatif">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="editKriteria" class="col-sm-4 col-form-label">
                                         Kriteria</label>
                                     <div class="col-sm-5">
-                                        <select class="custom-select" id="inputJenisKriteria">
+                                        <select class="custom-select" id="editKriteria">
                                             <option value="c1" selected>C1</option>
                                             <option value="c2">C2</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="inputBobotKriteria" class="col-sm-4 col-form-label">Penilaian</label>
+                                    <label for="editPenilaian" class="col-sm-4 col-form-label">Penilaian</label>
                                     <div class="col-sm-5">
-                                        <input type="number" class="form-control" id="inputBobotKriteria">
+                                        <input type="number" class="form-control" id="editPenilaian">
                                     </div>
                                 </div>
                             </form>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                            <button type="button" class="btn btn-success">Simpan</button>
+                            <button type="button" class="btn btn-success" id="buttonEditAlternatif">Simpan</button>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- Modal Hapus Satu -->
-            <div class="modal fade" id="modalHapusSatu" data-backdrop="static" data-keyboard="false" tabindex="-1"
-                aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal fade" id="modalHapusSatuAlternatif" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -210,15 +219,15 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                            <button type="button" class="btn btn-danger">Yakin</button>
+                            <button type="button" class="btn btn-danger" id="buttonHapusSatuAlternatif">Yakin</button>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- Modal Tambah Alternatif -->
-            <div class="modal fade" id="modalTambahAlternatif" data-backdrop="static" data-keyboard="false"
-                tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal fade" id="modalTambahAlternatif" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -231,41 +240,48 @@
                         <div class="modal-body">
                             <form>
                                 <div class="form-group row">
-                                    <label for="inputNamaKriteria" class="col-sm-4 col-form-label">Nama
+                                    <label for="inputKodeAlternatif" class="col-sm-4 col-form-label">Kode
                                         Alternatif</label>
                                     <div class="col-sm-5">
-                                        <input type="text" class="form-control" id="inputNamaKriteria">
+                                        <input type="text" class="form-control" id="inputKodeAlternatif">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="inputJenisKriteria" class="col-sm-4 col-form-label">
+                                    <label for="inputNamaAlternatif" class="col-sm-4 col-form-label">Nama
+                                        Alternatif</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" id="inputNamaAlternatif">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="inputKriteria" class="col-sm-4 col-form-label">
                                         Kriteria</label>
                                     <div class="col-sm-5">
-                                        <select class="custom-select" id="inputJenisKriteria">
+                                        <select class="custom-select" id="inputKriteria">
                                             <option value="c1" selected>C1</option>
                                             <option value="c2">C2</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="inputBobotKriteria" class="col-sm-4 col-form-label">Penilaian</label>
+                                    <label for="inputPenilaian" class="col-sm-4 col-form-label">Penilaian</label>
                                     <div class="col-sm-5">
-                                        <input type="number" class="form-control" id="inputBobotKriteria">
+                                        <input type="number" class="form-control" id="inputPenilaian">
                                     </div>
                                 </div>
                             </form>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                            <button type="button" class="btn btn-success">Simpan</button>
+                            <button type="button" class="btn btn-success" id="buttonTambahAlternatif">Simpan</button>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- Modal Hapus Semua -->
-            <div class="modal fade" id="modalHapusSemua" data-backdrop="static" data-keyboard="false" tabindex="-1"
-                aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal fade" id="modalHapusSemuaAlternatif" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -279,7 +295,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                            <button type="button" class="btn btn-danger">Yakin</button>
+                            <button type="button" class="btn btn-danger" id="buttonHapusSemuaAlternatif">Yakin</button>
                         </div>
                     </div>
                 </div>
@@ -304,12 +320,17 @@
         <i class="fas fa-angle-up"></i>
     </a>
 
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
+    <script src="./js//helpers.js"></script>
+    <script src="./js//modal.js"></script>
 </body>
 
 </html>

@@ -14,4 +14,20 @@ $(document).ready(function () {
     $("#buttonHapusSemuaKriteria").click(function () {
         $("#modalHapusSemuaKriteria").modal("hide");
     });
+
+    $("#buttonEditAlternatif").click(function () {
+        $("#modalEditAlternatif").modal("hide");
+    });
+
+    $("#buttonHapusSatuAlternatif").click(function () {
+        $("#modalHapusSatuAlternatif").modal("hide");
+    });
+
+    $("#buttonTambahAlternatif").click(function () {
+        $("#modalTambahAlternatif").modal("hide");
+    });
+
+    $("#buttonHapusSemuaAlternatif").click(function () {
+        $("#modalHapusSemuaAlternatif").modal("hide");
+    });
 });
