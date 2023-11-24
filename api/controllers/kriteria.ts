@@ -2,8 +2,12 @@ import { ModelKriteria } from '../models/ktriteria'
 
 export const ControllerKriteria = {
   create: async (req: any, res: any) => {
-    const data = req.body
-
+    const { nama, bobot, jenis } = req.body
+    const data = {
+      nama,
+      bobot: JSON.parse(bobot),
+      jenis: jenis === 'benefit' ? true : false,
+    }
     try {
       const result = await ModelKriteria.create(data)
       res.status(201).json(result)

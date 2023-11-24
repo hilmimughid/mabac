@@ -9,27 +9,28 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ControllerKriteria = void 0;
-const ktriteria_1 = require("../models/ktriteria");
-exports.ControllerKriteria = {
+exports.ControllerMatrix = void 0;
+const matrix_1 = require("../models/matrix");
+exports.ControllerMatrix = {
     create: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-        const { nama, bobot, jenis } = req.body;
-        const data = {
-            nama,
-            bobot: JSON.parse(bobot),
-            jenis: jenis === 'benefit' ? true : false,
-        };
         try {
-            const result = yield ktriteria_1.ModelKriteria.create(data);
+            const { id_alternatif, id_kriteria, nilai } = req.body;
+            const data = {
+                id_alternatif,
+                id_kriteria,
+                nilai: parseInt(nilai),
+            };
+            console.log('data matrix', data);
+            const result = yield matrix_1.ModelMatrix.create(data);
             res.status(201).json(result);
         }
         catch (error) {
-            res.status(500).json({ message: 'Server Error' });
+            res.status(500).json({ message: error });
         }
     }),
     findAll: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            const result = yield ktriteria_1.ModelKriteria.findAll();
+            const result = yield matrix_1.ModelMatrix.findAll();
             res.status(200).json(result);
         }
         catch (error) {
@@ -38,29 +39,29 @@ exports.ControllerKriteria = {
     }),
     findById: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            const result = yield ktriteria_1.ModelKriteria.findById(req.params.id);
+            const result = yield matrix_1.ModelMatrix.findById(req.params.id);
             res.status(200).json(result);
         }
         catch (error) {
-            res.status(500).json({ message: 'Server Error' });
+            res.status(500).json({ message: error });
         }
     }),
     update: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            const result = yield ktriteria_1.ModelKriteria.update(req.params.id, req.body);
+            const result = yield matrix_1.ModelMatrix.update(req.params.id, req.body);
             res.status(200).json(result);
         }
         catch (error) {
-            res.status(500).json({ message: 'Server Error' });
+            res.status(500).json({ message: error });
         }
     }),
     delete: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            yield ktriteria_1.ModelKriteria.delete(req.params.id);
+            yield matrix_1.ModelMatrix.delete(req.params.id);
             res.status(200).json({ message: 'Data Deleted' });
         }
         catch (error) {
-            res.status(500).json({ message: 'Server Error' });
+            res.status(500).json({ message: error });
         }
     }),
 };

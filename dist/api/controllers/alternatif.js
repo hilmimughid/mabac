@@ -15,6 +15,7 @@ exports.ControllerAlternatif = {
     create: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {
             const data = req.body;
+            console.log('data', data);
             const result = yield alternatif_1.ModelAlternatif.create(data);
             res.status(201).json(result);
         }
