@@ -1,4 +1,7 @@
+import { ModelAlternatif } from '../models/alternatif'
+import { ModelKriteria } from '../models/ktriteria'
 import { ModelMatrix } from '../models/matrix'
+import { groupByAlternatif } from '../utils/helpers'
 
 export const ControllerMatrix = {
   create: async (req: any, res: any) => {
@@ -9,8 +12,8 @@ export const ControllerMatrix = {
         id_kriteria,
         nilai: parseInt(nilai),
       }
-      console.log('data matrix', data)
       const result = await ModelMatrix.create(data)
+
       res.status(201).json(result)
     } catch (error) {
       res.status(500).json({ message: error })
@@ -19,7 +22,13 @@ export const ControllerMatrix = {
 
   findAll: async (req: any, res: any) => {
     try {
-      const result = await ModelMatrix.findAll()
+      const matrix = await ModelMatrix.findAll()
+      const kriteria = await ModelKriteria.findAll()
+      const alternatif = await ModelAlternatif.findAll()
+      const result = groupByAlternatif(matrix, kriteria, alternatif)
+
+      console.log('matrix', matrix)
+
       res.status(200).json(result)
     } catch (error) {
       res.status(500).json({ message: error })

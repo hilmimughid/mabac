@@ -1,41 +1,63 @@
 import { ModelAlternatif } from '../models/alternatif'
 import { ModelKriteria } from '../models/ktriteria'
+import { ModelMatrix } from '../models/matrix'
 import {
-  nilaiMaxMin,
-  nilaiMatrixTertimbang,
-  nilaiAreaBatas,
-  nilaiKriteriaBaru,
-  nilaiJarakAlternatif,
+  getMinMaxValues,
+  getNormalisasi,
+  groupByAlternatif,
+  groupByKriteria,
+  getTertimbang,
+  getMatriksBatas,
+  getAlternatif,
+  getTotalKriteria,
 } from '../utils/helpers'
 
 export const ControllerResult = {
   hasil: async (req: any, res: any) => {
     try {
-      const alternatif = await ModelAlternatif.findAll()
-      const kriteriaOri = await ModelKriteria.findAll()
-      const kriteria: any[][] = alternatif.map((val) => val.kriteria)
-      const maxMin = nilaiMaxMin(kriteria)
-      const matrixTertimbang = nilaiMatrixTertimbang(
-        alternatif,
-        maxMin,
-        kriteriaOri,
-      )
-      const areaBatas = nilaiAreaBatas(matrixTertimbang)
-      const jarakAlternatif = nilaiJarakAlternatif(matrixTertimbang, areaBatas)
-      const kriteriaBaru = nilaiKriteriaBaru(jarakAlternatif)
-      let result: any[] = alternatif.map((val: any, i: number) => {
-        return {
-          id: val.id,
-          urutan: val.urutan,
-          nama: val.nama,
-          kriteria: val.kriteria,
-          id_kriteria: val.id_kriteria,
-          hasil: kriteriaBaru[i],
-        }
-      })
-      const resultSorted = result.sort((a, b) => b.hasil - a.hasil)
+      const tipe = req.query.tipe
+      console.log('tipe', tipe)
+      let result = ''
 
-      res.status(200).json(resultSorted)
+      const matrix = await ModelMatrix.findAll()
+      const kriteria = await ModelKriteria.findAll()
+      const alternatif = await ModelAlternatif.findAll()
+
+      const data = groupByKriteria(matrix, kriteria)
+
+      const minMax = getMinMaxValues(data, kriteria)
+      const dataAlternatif = groupByAlternatif(matrix, kriteria, alternatif)
+
+      // matrix normalisasi
+      const normalisasi = getNormalisasi(dataAlternatif, minMax)
+
+      // matrix tertimbang
+      const tertimbang = getTertimbang(normalisasi, kriteria)
+
+      const batas = getMatriksBatas(tertimbang)
+
+      // matrix jarak alternatif
+      const matrixAlternatif = getAlternatif(tertimbang, batas)
+
+      // matrix hasil
+      const matrixTotalKriteria = getTotalKriteria(matrixAlternatif)
+
+      switch (tipe) {
+        case 'matriks':
+          result = normalisasi
+          break
+        case 'tertimbang':
+          result = tertimbang
+          break
+        case 'alternatif':
+          result = matrixAlternatif
+          break
+        case 'hasil':
+          result = matrixTotalKriteria
+          break
+      }
+
+      res.status(200).json(result)
     } catch (error) {
       res.status(500).json({ message: error })
     }

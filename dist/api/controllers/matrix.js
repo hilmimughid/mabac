@@ -10,7 +10,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ControllerMatrix = void 0;
+const alternatif_1 = require("../models/alternatif");
+const ktriteria_1 = require("../models/ktriteria");
 const matrix_1 = require("../models/matrix");
+const helpers_1 = require("../utils/helpers");
 exports.ControllerMatrix = {
     create: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {
@@ -20,7 +23,6 @@ exports.ControllerMatrix = {
                 id_kriteria,
                 nilai: parseInt(nilai),
             };
-            console.log('data matrix', data);
             const result = yield matrix_1.ModelMatrix.create(data);
             res.status(201).json(result);
         }
@@ -30,7 +32,11 @@ exports.ControllerMatrix = {
     }),
     findAll: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            const result = yield matrix_1.ModelMatrix.findAll();
+            const matrix = yield matrix_1.ModelMatrix.findAll();
+            const kriteria = yield ktriteria_1.ModelKriteria.findAll();
+            const alternatif = yield alternatif_1.ModelAlternatif.findAll();
+            const result = (0, helpers_1.groupByAlternatif)(matrix, kriteria, alternatif);
+            console.log('matrix', matrix);
             res.status(200).json(result);
         }
         catch (error) {

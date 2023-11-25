@@ -9,6 +9,7 @@ const alternatif_1 = __importDefault(require("./api/routes/alternatif"));
 const kriteria_1 = __importDefault(require("./api/routes/kriteria"));
 const rentangSkort_1 = __importDefault(require("./api/routes/rentangSkort"));
 const cors_1 = __importDefault(require("cors"));
+const result_1 = __importDefault(require("./api/routes/result"));
 const matrix_1 = __importDefault(require("./api/routes/matrix"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
@@ -27,7 +28,7 @@ app.use('/api/alternatif', alternatif_1.default);
 app.use('/api/kriteria', kriteria_1.default);
 app.use('/api/rentang', rentangSkort_1.default);
 app.use('/api/matrix', matrix_1.default);
-// app.use('/api/result', RouterResult)
+app.use('/api/result', result_1.default);
 app.listen(port, () => {
     console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
 });

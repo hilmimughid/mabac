@@ -12,30 +12,44 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ControllerResult = void 0;
 const alternatif_1 = require("../models/alternatif");
 const ktriteria_1 = require("../models/ktriteria");
+const matrix_1 = require("../models/matrix");
 const helpers_1 = require("../utils/helpers");
 exports.ControllerResult = {
     hasil: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {
+            const tipe = req.query.tipe;
+            console.log('tipe', tipe);
+            let result = '';
+            const matrix = yield matrix_1.ModelMatrix.findAll();
+            const kriteria = yield ktriteria_1.ModelKriteria.findAll();
             const alternatif = yield alternatif_1.ModelAlternatif.findAll();
-            const kriteriaOri = yield ktriteria_1.ModelKriteria.findAll();
-            const kriteria = alternatif.map((val) => val.kriteria);
-            const maxMin = (0, helpers_1.nilaiMaxMin)(kriteria);
-            const matrixTertimbang = (0, helpers_1.nilaiMatrixTertimbang)(alternatif, maxMin, kriteriaOri);
-            const areaBatas = (0, helpers_1.nilaiAreaBatas)(matrixTertimbang);
-            const jarakAlternatif = (0, helpers_1.nilaiJarakAlternatif)(matrixTertimbang, areaBatas);
-            const kriteriaBaru = (0, helpers_1.nilaiKriteriaBaru)(jarakAlternatif);
-            let result = alternatif.map((val, i) => {
-                return {
-                    id: val.id,
-                    urutan: val.urutan,
-                    nama: val.nama,
-                    kriteria: val.kriteria,
-                    id_kriteria: val.id_kriteria,
-                    hasil: kriteriaBaru[i],
-                };
-            });
-            const resultSorted = result.sort((a, b) => b.hasil - a.hasil);
-            res.status(200).json(resultSorted);
+            const data = (0, helpers_1.groupByKriteria)(matrix, kriteria);
+            const minMax = (0, helpers_1.getMinMaxValues)(data, kriteria);
+            const dataAlternatif = (0, helpers_1.groupByAlternatif)(matrix, kriteria, alternatif);
+            // matrix normalisasi
+            const normalisasi = (0, helpers_1.getNormalisasi)(dataAlternatif, minMax);
+            // matrix tertimbang
+            const tertimbang = (0, helpers_1.getTertimbang)(normalisasi, kriteria);
+            const batas = (0, helpers_1.getMatriksBatas)(tertimbang);
+            // matrix jarak alternatif
+            const matrixAlternatif = (0, helpers_1.getAlternatif)(tertimbang, batas);
+            // matrix hasil
+            const matrixTotalKriteria = (0, helpers_1.getTotalKriteria)(matrixAlternatif);
+            switch (tipe) {
+                case 'matriks':
+                    result = normalisasi;
+                    break;
+                case 'tertimbang':
+                    result = tertimbang;
+                    break;
+                case 'alternatif':
+                    result = matrixAlternatif;
+                    break;
+                case 'hasil':
+                    result = matrixTotalKriteria;
+                    break;
+            }
+            res.status(200).json(result);
         }
         catch (error) {
             res.status(500).json({ message: error });
