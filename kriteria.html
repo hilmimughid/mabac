@@ -151,24 +151,24 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form>
-                                <div class="form-group row">
-                                    <label for="editKodeKriteria" class="col-sm-4 col-form-label">Kode Kriteria</label>
+                            <form id="formEdit">
+                                <div class="form-group row d-none">
+                                    <label for="editNamaKriteria" class="col-sm-4 col-form-label">Nama Kriteria</label>
                                     <div class="col-sm-5">
-                                        <input type="text" class="form-control" id="editKodeKriteria">
+                                        <input type="text" class="form-control" id="idEdit" name="id">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="editNamaKriteria" class="col-sm-4 col-form-label">Nama Kriteria</label>
                                     <div class="col-sm-5">
-                                        <input type="text" class="form-control" id="editNamaKriteria">
+                                        <input type="text" class="form-control" id="namaEdit" name="nama">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="editJenisKriteria" class="col-sm-4 col-form-label">Jenis
                                         Kriteria</label>
                                     <div class="col-sm-5">
-                                        <select class="custom-select" id="editJenisKriteria">
+                                        <select class="custom-select" id="editJenis" name="jenis">
                                             <option value="benefit" selected>Benefit</option>
                                             <option value="cost">Cost</option>
                                         </select>
@@ -178,14 +178,14 @@
                                     <label for="editBobotKriteria" class="col-sm-4 col-form-label">Bobot
                                         Kriteria</label>
                                     <div class="col-sm-5">
-                                        <input type="number" class="form-control" id="editBobotKriteria">
+                                        <input type="number" class="form-control" id="bobotEdit" name="bobot">
                                     </div>
                                 </div>
                             </form>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                            <button type="button" class="btn btn-success" id="buttonEditKriteria">Simpan</button>
+                            <button type="button" class="btn btn-success" id="buttonEditKriteria" onclick="simpanPerubahan()">Simpan</button>
                         </div>
                     </div>
                 </div>
@@ -314,6 +314,7 @@
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
+    <script src="js/modal.js"></script>
 
     <script type="module" src="./js/kriteria.js"></script>
     <script>
@@ -344,6 +345,40 @@
     console.log(error)
   }
 }
+
+const simpanPerubahan = async () => {
+  try {
+    const formData = new FormData(document.querySelector('#formEdit'))
+    const id = formData.get('id')
+    console.log('id',id)
+
+    const value = {
+      nama: formData.get('nama'),
+      bobot: formData.get('bobot'),
+      jenis: formData.get('jenis'),
+
+    }
+    console.log('value',value)
+    // const reponse = await fetch('http://localhost:8000/api/kriteria', {
+    //   method: 'PUT',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify(value),
+    // })
+
+    // if (!reponse.ok) {
+    //   throw new Error({ message: reponse.statusText })
+    // }
+
+    // const data = await reponse.json()
+    // return { message: 'post data success', data: data }
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+
 
     </script>
 </body>

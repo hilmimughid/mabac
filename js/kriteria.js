@@ -1,4 +1,10 @@
-import { ambilData, createButton, createTableCell } from './helper.js'
+import {
+  ambilData,
+  createButton,
+  createTableCell,
+  deleteRow,
+  editRow,
+} from './helper.js'
 
 document.addEventListener('DOMContentLoaded', async function () {
   const kriteria = await ambilData('kriteria')
@@ -13,8 +19,14 @@ document.addEventListener('DOMContentLoaded', async function () {
     tr.appendChild(createTableCell(tipe))
     tr.appendChild(createTableCell(item.bobot))
 
-    const editButton = createButton('bi-pencil-square', 'btn-warning')
+    const editButton = createButton('bi-pencil-square', 'btn-warning', () => {
+      editRow(item)
+    })
     editButton.classList.add('mx-2')
+    editButton.setAttribute('data-target', '#modalEditKriteria')
+    editButton.setAttribute('data-toggle', 'modal')
+    editButton.setAttribute('type', 'button')
+    editButton.id = item.id
 
     const deleteButton = createButton('bi-trash3-fill', 'btn-danger', () =>
       deleteRow(item.id),
@@ -28,19 +40,6 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     tr.appendChild(tdActions)
     return tr
-  }
-
-  function editRow(id) {
-    // Implement the edit functionality here
-    console.log('Edit row with ID:', id)
-  }
-
-  function deleteRow(id) {
-    const rowToDelete = document.getElementById(`row_${id}`)
-    if (rowToDelete) {
-      rowToDelete.remove()
-      hapusKriteria(id)
-    }
   }
 
   kriteria.forEach((item) => {

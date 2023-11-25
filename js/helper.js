@@ -30,9 +30,13 @@ export function createRow(item) {
   return tr
 }
 
-export function editRow(id) {
-  // Implement the edit functionality here
-  console.log('Edit row with ID:', id)
+export function editRow(item) {
+  const nama = document.querySelector('#namaEdit')
+  nama.value = item.nama
+  const bobot = document.querySelector('#bobotEdit')
+  bobot.value = item.bobot
+  const edit = document.querySelector('#idEdit')
+  edit.value = item.id
 }
 
 export function deleteRow(id) {
