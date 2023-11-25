@@ -1,28 +1,9 @@
-import { ambilKriteria, hapusKriteria } from './kriteria/kriteria.js'
-import { ambilAlternatif, hapusAlternatif } from './alternatif/alternatif.js'
+import { ambilData, createButton, createTableCell } from './helper.js'
 
 document.addEventListener('DOMContentLoaded', async function () {
-  const data = await ambilKriteria()
-  const dataAlternatif = await ambilAlternatif()
-  console.log('dataAlternatif', dataAlternatif)
+  const kriteria = await ambilData('kriteria')
 
   const tbody = document.querySelector('#tbodyKriteria')
-
-  function createButton(iconClass, btnClass, onClick) {
-    const button = document.createElement('button')
-    const icon = document.createElement('i')
-    icon.classList.add('bi', iconClass)
-    button.classList.add('btn', btnClass)
-    button.appendChild(icon)
-    button.addEventListener('click', onClick)
-    return button
-  }
-
-  function createTableCell(text) {
-    const td = document.createElement('td')
-    td.textContent = text
-    return td
-  }
 
   function createRow(item) {
     const tr = document.createElement('tr')
@@ -33,16 +14,19 @@ document.addEventListener('DOMContentLoaded', async function () {
     tr.appendChild(createTableCell(item.bobot))
 
     const editButton = createButton('bi-pencil-square', 'btn-warning')
+    editButton.classList.add('mx-2')
+
     const deleteButton = createButton('bi-trash3-fill', 'btn-danger', () =>
       deleteRow(item.id),
     )
+    deleteButton.classList.add('mx-2')
 
     const tdActions = document.createElement('td')
+    tdActions.classList.add('d-flex')
     tdActions.appendChild(editButton)
     tdActions.appendChild(deleteButton)
 
     tr.appendChild(tdActions)
-
     return tr
   }
 
@@ -52,8 +36,6 @@ document.addEventListener('DOMContentLoaded', async function () {
   }
 
   function deleteRow(id) {
-    // Implement the delete functionality here
-    console.log('Delete row with ID:', id)
     const rowToDelete = document.getElementById(`row_${id}`)
     if (rowToDelete) {
       rowToDelete.remove()
@@ -61,7 +43,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
   }
 
-  data.forEach((item) => {
+  kriteria.forEach((item) => {
     const row = createRow(item)
     row.id = `row_${item.id}`
     tbody.appendChild(row)

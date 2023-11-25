@@ -95,3 +95,7 @@ export const ambilData = async (url) => {
     console.log(error)
   }
 }
+
+export const urutkanTerbesar = (data) => {
+  return data.sort((a, b) => b.total_nilai - a.total_nilai)
+}

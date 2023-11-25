@@ -1,16 +1,6 @@
-import { ambilKriteria } from '../kriteria/kriteria.js'
-import { ambilAlternatif, hapusAlternatif } from './alternatif.js'
-import { ambilMatrix } from '../matrix/matrix.js'
-import {
-  createButton,
-  createTableCell,
-  createData,
-  createRow,
-  editRow,
-  deleteRow,
-  createOption,
-  groupByAlternatif,
-} from '../helper.js'
+import { ambilKriteria } from './kriteria.js'
+import { ambilData } from './helper.js'
+import { createData, createOption } from './helper.js'
 
 const select = document.querySelector('#formJenisKriteria')
 const selectNama = document.querySelector('#formNamaAlternatif')
@@ -19,9 +9,9 @@ const tHead = document.querySelector('#matrixNilai')
 const tBody = document.querySelector('#matrixNilaiBody')
 
 document.addEventListener('DOMContentLoaded', async function () {
-  const dataAlternatif = await ambilAlternatif()
+  const dataAlternatif = await ambilData('alternatif')
   const dataKriteria = await ambilKriteria()
-  const dataMatrix = await ambilMatrix()
+  const dataMatrix = await ambilData('matrix')
 
   dataKriteria.forEach((item) => {
     const td = document.createElement('td')

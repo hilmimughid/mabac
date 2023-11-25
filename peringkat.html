@@ -74,7 +74,7 @@
                     <i class="bi bi-trophy-fill"></i>
                     <span>Peringkat</span></a>
             </li>
-            
+
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
@@ -107,10 +107,11 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
+
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-black text-center">Hasil Peringkat</h6>
+                            <h6 class="m-0 font-weight-bold text-black text-center">Matrix Keputusan Awal</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -118,18 +119,12 @@
                                     cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th class="width-5">Ranking</th>
-                                            <th class="width-12">Kode Alternatif</th>
-                                            <th>Nama Alternatif</th>
-                                            <th>Skor</th>
+                                            <th>pringkat</th>
+                                            <th>alternatif</th>
+                                            <th>nilai</th>
                                         </tr>
                                     </thead>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>A1</td>
-                                        <td>Hilmi</td>
-                                        <td>100</td>
-                                    </tr>
+                                    <tbody id="matrixNilaiBody">
                                     </tbody>
                                 </table>
                             </div>
@@ -149,6 +144,8 @@
                 </div>
             </footer>
             <!-- End of Footer -->
+
+            
         </div>
         <!-- End of Content Wrapper -->
     </div>
@@ -159,12 +156,19 @@
         <i class="fas fa-angle-up"></i>
     </a>
 
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- <script type="module" src="./js/alternatif/app.js"></script> -->
+    <script type="module" src="./js/peringkat.js"></script>
+
 </body>
 
 </html>
