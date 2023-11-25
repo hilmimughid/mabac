@@ -83,3 +83,15 @@ export function groupByAlternatif(data) {
 
   return groupedData
 }
+
+export const ambilData = async (url) => {
+  try {
+    const response = await fetch(`http://localhost:8000/api/${url}`, {
+      method: 'GET',
+    })
+    const data = response.json()
+    return data
+  } catch (error) {
+    console.log(error)
+  }
+}

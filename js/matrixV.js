@@ -6,8 +6,7 @@ const tHead = document.querySelector('#matrixNilai')
 
 document.addEventListener('DOMContentLoaded', async function () {
   const dataKriteria = await ambilKriteria()
-  const nomralisasi = await ambilData('result?tipe=normalisasi')
-  console.log('nomralisasi', nomralisasi)
+  const tertimbang = await ambilData('result?tipe=tertimbang')
 
   dataKriteria.forEach((item, index) => {
     const td = document.createElement('td')
@@ -15,7 +14,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     tHead.appendChild(td)
   })
 
-  nomralisasi.forEach((item, index) => {
+  tertimbang.forEach((item, index) => {
     const row = document.createElement('tr')
     const td = createData('A' + index)
     row.appendChild(td)
