@@ -1,4 +1,3 @@
-import { ambilKriteria } from './kriteria.js'
 import { ambilData } from './helper.js'
 import { createData, createOption } from './helper.js'
 
@@ -10,8 +9,9 @@ const tBody = document.querySelector('#matrixNilaiBody')
 
 document.addEventListener('DOMContentLoaded', async function () {
   const dataAlternatif = await ambilData('alternatif')
-  const dataKriteria = await ambilKriteria()
+  const dataKriteria = await await ambilData('kriteria')
   const dataMatrix = await ambilData('matrix')
+  console.log('dataMatrix', dataMatrix)
 
   dataKriteria.forEach((item) => {
     const td = document.createElement('td')

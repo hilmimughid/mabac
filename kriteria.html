@@ -356,23 +356,23 @@ const simpanPerubahan = async () => {
       nama: formData.get('nama'),
       bobot: formData.get('bobot'),
       jenis: formData.get('jenis'),
-
     }
     console.log('value',value)
-    // const reponse = await fetch('http://localhost:8000/api/kriteria', {
-    //   method: 'PUT',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify(value),
-    // })
 
-    // if (!reponse.ok) {
-    //   throw new Error({ message: reponse.statusText })
-    // }
+    const reponse = await fetch(`http://localhost:8000/api/kriteria/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(value),
+    })
 
-    // const data = await reponse.json()
-    // return { message: 'post data success', data: data }
+    if (!reponse.ok) {
+      throw new Error({ message: reponse.statusText })
+    }
+
+    const data = await reponse.json()
+    return { message: 'post data success', data: data }
   } catch (error) {
     console.log(error)
   }

@@ -26,12 +26,14 @@ document.addEventListener('DOMContentLoaded', async function () {
     editButton.setAttribute('data-target', '#modalEditKriteria')
     editButton.setAttribute('data-toggle', 'modal')
     editButton.setAttribute('type', 'button')
-    editButton.id = item.id
 
     const deleteButton = createButton('bi-trash3-fill', 'btn-danger', () =>
       deleteRow(item.id),
     )
     deleteButton.classList.add('mx-2')
+    deleteButton.setAttribute('data-target', '#modalHapusSatuKriteria')
+    deleteButton.setAttribute('data-toggle', 'modal')
+    deleteButton.setAttribute('type', 'button')
 
     const tdActions = document.createElement('td')
     tdActions.classList.add('d-flex')

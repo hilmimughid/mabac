@@ -40,13 +40,11 @@ export function editRow(item) {
 }
 
 export function deleteRow(id) {
-  // Implement the delete functionality here
-  console.log('Delete row with ID:', id)
-  const rowToDelete = document.getElementById(`row_${id}`)
-  if (rowToDelete) {
-    rowToDelete.remove()
-    hapusKriteria(id)
-  }
+  const yakinButton = document.querySelector('#buttonHapusSatuKriteria')
+  yakinButton.addEventListener(
+    'click',
+    hapusData(`http://localhost:8000/api/kriteria/${id}`),
+  )
 }
 
 export const createOption = (value) => {
@@ -66,7 +64,6 @@ export function groupByAlternatif(data) {
     )
 
     if (!existingGroup) {
-      // Jika grup untuk id_alternatif belum ada, tambahkan ke array
       groupedData.push({
         id_alternatif: idAlternatif,
         data: [
@@ -77,7 +74,6 @@ export function groupByAlternatif(data) {
         ],
       })
     } else {
-      // Jika grup untuk id_alternatif sudah ada, tambahkan data ke dalam grup tersebut
       existingGroup.data.push({
         id_kriteria: item.id_kriteria,
         nilai: item.nilai,
@@ -102,4 +98,25 @@ export const ambilData = async (url) => {
 
 export const urutkanTerbesar = (data) => {
   return data.sort((a, b) => b.total_nilai - a.total_nilai)
+}
+
+export const hapusData = async (url) => {
+  try {
+    const reponse = await fetch(url, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+
+    if (!reponse.ok) {
+      throw new Error(`HTTP !error Status : ${reponse.status}`)
+    }
+
+    const deleted = await reponse.json()
+    return deleted
+  } catch (error) {
+    console.log(error)
+    throw error
+  }
 }
