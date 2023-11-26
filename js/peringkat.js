@@ -1,10 +1,10 @@
-import { ambilKriteria } from './kriteria/kriteria.js'
 import { ambilData, createData, urutkanTerbesar } from './helper.js'
 
 const tBody = document.querySelector('#matrixNilaiBody')
 
 document.addEventListener('DOMContentLoaded', async function () {
   const hasil = await ambilData('result?tipe=hasil')
+  console.log('hasil', hasil)
   const hasilUrut = urutkanTerbesar(hasil)
 
   hasilUrut.forEach((item, index) => {

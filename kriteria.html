@@ -339,7 +339,9 @@
       throw new Error({ message: reponse.statusText })
     }
 
-    const data = await reponse.json()
+    alert('Kriteria berhasil ditambahkan!!')
+    location.reload()
+    
     return { message: 'post data success', data: data }
   } catch (error) {
     console.log(error)

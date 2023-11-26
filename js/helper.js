@@ -39,12 +39,13 @@ export function editRow(item) {
   edit.value = item.id
 }
 
-export function deleteRow(id) {
-  const yakinButton = document.querySelector('#buttonHapusSatuKriteria')
-  yakinButton.addEventListener(
-    'click',
-    hapusData(`http://localhost:8000/api/kriteria/${id}`),
-  )
+export function deleteRow(id, url) {
+  const idBUtton = url.charAt(0).toUpperCase() + url.slice(1)
+  const yakinButton = document.querySelector(`#buttonHapusSatu${idBUtton}`)
+
+  yakinButton.addEventListener('click', () => {
+    hapusData(`http://localhost:8000/api/${url}/${id}`)
+  })
 }
 
 export const createOption = (value) => {
@@ -112,6 +113,9 @@ export const hapusData = async (url) => {
     if (!reponse.ok) {
       throw new Error(`HTTP !error Status : ${reponse.status}`)
     }
+
+    alert('Data berhasil dihapus')
+    location.reload()
 
     const deleted = await reponse.json()
     return deleted

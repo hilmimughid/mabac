@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     editButton.setAttribute('type', 'button')
 
     const deleteButton = createButton('bi-trash3-fill', 'btn-danger', () =>
-      deleteRow(item.id),
+      deleteRow(item.id, 'kriteria'),
     )
     deleteButton.classList.add('mx-2')
     deleteButton.setAttribute('data-target', '#modalHapusSatuKriteria')
