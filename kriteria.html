@@ -327,7 +327,7 @@
       bobot: formData.get('bobot'),
       jenis: formData.get('jenis'),
     }
-    const reponse = await fetch('http://localhost:8000/api/kriteria', {
+    const reponse = await fetch('https://backend-spk.vercel.app/api/kriteria', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -361,7 +361,7 @@ const simpanPerubahan = async () => {
     }
     console.log('value',value)
 
-    const reponse = await fetch(`http://localhost:8000/api/kriteria/${id}`, {
+    const reponse = await fetch(`https://backend-spk.vercel.app/api/kriteria/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -379,8 +379,6 @@ const simpanPerubahan = async () => {
     console.log(error)
   }
 }
-
-
 
     </script>
 </body>

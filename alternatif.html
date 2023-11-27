@@ -338,7 +338,7 @@ id_kriteria: formData.get('kriteria'),
 nilai: parseInt(formData.get('nilai')),
 }
 
-    const reponse = await fetch('http://localhost:8000/api/matrix', {
+    const reponse = await fetch(`https://backend-spk.vercel.app/api/matrix`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -347,7 +347,8 @@ nilai: parseInt(formData.get('nilai')),
     })
 
     if (!reponse.ok) {
-      throw new Error({ message: reponse.statusText })
+        const error = await reponse.json()
+      throw new Error(error.message)
     }
 
     const data = await reponse.json()
@@ -357,7 +358,8 @@ nilai: parseInt(formData.get('nilai')),
 
     return { message: 'post data success', data: data }
   } catch (error) {
-    console.log(error)
+   alert(error.message)
+    return
   }
 }
     
@@ -368,7 +370,7 @@ nilai: parseInt(formData.get('nilai')),
             nama : formData.get('nama')
         }
 
-        const reponse = await fetch('http://localhost:8000/api/alternatif', {
+        const reponse = await fetch('https://backend-spk.vercel.app/api/alternatif', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -384,7 +386,8 @@ nilai: parseInt(formData.get('nilai')),
     const data = await reponse.json()
 return { message: 'post data success', data: data }
         } catch (error) {
-                console.log(error)
+            console.log(error)
+            return 
         }
     }
     </script>

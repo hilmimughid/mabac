@@ -87,7 +87,7 @@ export function groupByAlternatif(data) {
 
 export const ambilData = async (url) => {
   try {
-    const response = await fetch(`http://localhost:8000/api/${url}`, {
+    const response = await fetch(`https://backend-spk.vercel.app/api/${url}`, {
       method: 'GET',
     })
     const data = response.json()
