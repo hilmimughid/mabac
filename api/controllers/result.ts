@@ -16,8 +16,7 @@ export const ControllerResult = {
   hasil: async (req: any, res: any) => {
     try {
       const tipe = req.query.tipe
-      console.log('tipe', tipe)
-      let result = ''
+      let result: any = ''
 
       const matrix = await ModelMatrix.findAll()
       const kriteria = await ModelKriteria.findAll()
@@ -43,11 +42,14 @@ export const ControllerResult = {
       const matrixTotalKriteria = getTotalKriteria(matrixAlternatif)
 
       switch (tipe) {
-        case 'matriks':
+        case 'normalisasi':
           result = normalisasi
           break
         case 'tertimbang':
           result = tertimbang
+          break
+        case 'batas':
+          result = batas
           break
         case 'alternatif':
           result = matrixAlternatif

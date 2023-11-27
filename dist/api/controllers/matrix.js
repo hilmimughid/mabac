@@ -23,11 +23,17 @@ exports.ControllerMatrix = {
                 id_kriteria,
                 nilai: parseInt(nilai),
             };
+            const matrix = yield matrix_1.ModelMatrix.findByKriteriaAlternatif(id_alternatif, id_kriteria);
+            if (matrix) {
+                throw new Error('The value has been filled; please try filling another criteria or alternative.');
+            }
             const result = yield matrix_1.ModelMatrix.create(data);
             res.status(201).json(result);
         }
         catch (error) {
-            res.status(500).json({ message: error });
+            return res
+                .status(500)
+                .json({ message: error.message || 'Internal Server Error' });
         }
     }),
     findAll: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -36,7 +42,7 @@ exports.ControllerMatrix = {
             const kriteria = yield ktriteria_1.ModelKriteria.findAll();
             const alternatif = yield alternatif_1.ModelAlternatif.findAll();
             const result = (0, helpers_1.groupByAlternatif)(matrix, kriteria, alternatif);
-            console.log('matrix', matrix);
+            // console.log('matrix', matrix)
             res.status(200).json(result);
         }
         catch (error) {

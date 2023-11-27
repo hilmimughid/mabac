@@ -18,7 +18,6 @@ exports.ControllerResult = {
     hasil: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {
             const tipe = req.query.tipe;
-            console.log('tipe', tipe);
             let result = '';
             const matrix = yield matrix_1.ModelMatrix.findAll();
             const kriteria = yield ktriteria_1.ModelKriteria.findAll();
@@ -36,11 +35,14 @@ exports.ControllerResult = {
             // matrix hasil
             const matrixTotalKriteria = (0, helpers_1.getTotalKriteria)(matrixAlternatif);
             switch (tipe) {
-                case 'matriks':
+                case 'normalisasi':
                     result = normalisasi;
                     break;
                 case 'tertimbang':
                     result = tertimbang;
+                    break;
+                case 'batas':
+                    result = batas;
                     break;
                 case 'alternatif':
                     result = matrixAlternatif;

@@ -21,10 +21,30 @@ exports.ModelMatrix = {
     findById: (id) => __awaiter(void 0, void 0, void 0, function* () {
         return yield db_1.prisma.matrix.findUnique({ where: { id } });
     }),
+    findByKriteriaAlternatif: (id_alternatif, id_kriteria) => __awaiter(void 0, void 0, void 0, function* () {
+        return yield db_1.prisma.matrix.findFirst({
+            where: {
+                id_alternatif,
+                id_kriteria,
+            },
+        });
+    }),
     update: (id, data) => __awaiter(void 0, void 0, void 0, function* () {
         return yield db_1.prisma.matrix.update({ where: { id }, data });
     }),
     delete: (id) => __awaiter(void 0, void 0, void 0, function* () {
         return yield db_1.prisma.matrix.delete({ where: { id } });
+    }),
+    deleteByKriteria: (id_kriteria) => __awaiter(void 0, void 0, void 0, function* () {
+        return yield db_1.prisma.matrix.deleteMany({
+            where: { id_kriteria: id_kriteria },
+        });
+    }),
+    deleteByAlternatif: (id_alternatif) => __awaiter(void 0, void 0, void 0, function* () {
+        return yield db_1.prisma.matrix.deleteMany({
+            where: {
+                id_alternatif: id_alternatif,
+            },
+        });
     }),
 };

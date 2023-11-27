@@ -1,4 +1,5 @@
 import { ModelAlternatif } from '../models/alternatif'
+import { ModelMatrix } from '../models/matrix'
 
 export const ControllerAlternatif = {
   create: async (req: any, res: any) => {
@@ -42,6 +43,7 @@ export const ControllerAlternatif = {
   delete: async (req: any, res: any) => {
     try {
       await ModelAlternatif.delete(req.params.id)
+      await ModelMatrix.deleteByAlternatif(req.params.id)
       res.status(200).json({ message: 'Data Deleted' })
     } catch (error) {
       res.status(500).json({ message: error })

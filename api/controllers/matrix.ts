@@ -12,11 +12,25 @@ export const ControllerMatrix = {
         id_kriteria,
         nilai: parseInt(nilai),
       }
+
+      const matrix = await ModelMatrix.findByKriteriaAlternatif(
+        id_alternatif,
+        id_kriteria,
+      )
+
+      if (matrix) {
+        throw new Error(
+          'The value has been filled; please try filling another criteria or alternative.',
+        )
+      }
+
       const result = await ModelMatrix.create(data)
 
       res.status(201).json(result)
-    } catch (error) {
-      res.status(500).json({ message: error })
+    } catch (error: any) {
+      return res
+        .status(500)
+        .json({ message: error.message || 'Internal Server Error' })
     }
   },
 
@@ -27,7 +41,7 @@ export const ControllerMatrix = {
       const alternatif = await ModelAlternatif.findAll()
       const result = groupByAlternatif(matrix, kriteria, alternatif)
 
-      console.log('matrix', matrix)
+      // console.log('matrix', matrix)
 
       res.status(200).json(result)
     } catch (error) {

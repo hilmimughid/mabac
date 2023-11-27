@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ControllerKriteria = void 0;
 const ktriteria_1 = require("../models/ktriteria");
+const matrix_1 = require("../models/matrix");
 exports.ControllerKriteria = {
     create: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const { nama, bobot, jenis } = req.body;
@@ -47,7 +48,13 @@ exports.ControllerKriteria = {
     }),
     update: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            const result = yield ktriteria_1.ModelKriteria.update(req.params.id, req.body);
+            const { jenis, bobot, nama } = req.body;
+            const value = {
+                nama,
+                jenis: jenis === 'benefit' ? true : false,
+                bobot: parseInt(bobot),
+            };
+            const result = yield ktriteria_1.ModelKriteria.update(req.params.id, value);
             res.status(200).json(result);
         }
         catch (error) {
@@ -57,6 +64,7 @@ exports.ControllerKriteria = {
     delete: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {
             yield ktriteria_1.ModelKriteria.delete(req.params.id);
+            yield matrix_1.ModelMatrix.deleteByKriteria(req.params.id);
             res.status(200).json({ message: 'Data Deleted' });
         }
         catch (error) {

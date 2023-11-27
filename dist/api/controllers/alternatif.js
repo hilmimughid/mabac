@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ControllerAlternatif = void 0;
 const alternatif_1 = require("../models/alternatif");
+const matrix_1 = require("../models/matrix");
 exports.ControllerAlternatif = {
     create: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {
@@ -53,6 +54,7 @@ exports.ControllerAlternatif = {
     delete: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {
             yield alternatif_1.ModelAlternatif.delete(req.params.id);
+            yield matrix_1.ModelMatrix.deleteByAlternatif(req.params.id);
             res.status(200).json({ message: 'Data Deleted' });
         }
         catch (error) {

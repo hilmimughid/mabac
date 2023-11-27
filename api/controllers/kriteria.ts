@@ -1,4 +1,5 @@
 import { ModelKriteria } from '../models/ktriteria'
+import { ModelMatrix } from '../models/matrix'
 
 export const ControllerKriteria = {
   create: async (req: any, res: any) => {
@@ -36,7 +37,15 @@ export const ControllerKriteria = {
 
   update: async (req: any, res: any) => {
     try {
-      const result = await ModelKriteria.update(req.params.id, req.body)
+      const { jenis, bobot, nama } = req.body
+      const value = {
+        nama,
+        jenis: jenis === 'benefit' ? true : false,
+        bobot: parseInt(bobot),
+      }
+
+      const result = await ModelKriteria.update(req.params.id, value)
+
       res.status(200).json(result)
     } catch (error) {
       res.status(500).json({ message: 'Server Error' })
@@ -46,6 +55,8 @@ export const ControllerKriteria = {
   delete: async (req: any, res: any) => {
     try {
       await ModelKriteria.delete(req.params.id)
+      await ModelMatrix.deleteByKriteria(req.params.id)
+
       res.status(200).json({ message: 'Data Deleted' })
     } catch (error) {
       res.status(500).json({ message: 'Server Error' })
