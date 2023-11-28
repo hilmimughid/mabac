@@ -57,27 +57,32 @@
             <li class="nav-item active">
                 <a class="nav-link" href="matriksX.html">
                     <i class="bi bi-table"></i>
-                    <span>Normalisasi Matriks Keputusan Awal</span></a>
+                    <span>Normalisasi Matriks</span></a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link" href="matriksV.html">
                     <i class="bi bi-table"></i>
-                    <span>Matriks Keputusan Tertimbang (V)</span></a>
+                    <span>Matriks (V)</span></a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link" href="matriksG.html">
                     <i class="bi bi-table"></i>
-                    <span>Matriks Area Perkiraan Batas (G)</span></a>
+                    <span>Matriks (G)</span></a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link" href="matriksQ.html">
                     <i class="bi bi-table"></i>
-                    <span>Matriks Jarak Alternatif (Q)</span></a>
+                    <span>Matriks (Q)</span></a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link" href="peringkat.html">
                     <i class="bi bi-trophy-fill"></i>
                     <span>Peringkat</span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="">
+                    <i class="bi bi-arrow-clockwise"></i>
+                    <span>Reset</span></a>
             </li>
 
             <!-- Divider -->
@@ -123,8 +128,8 @@
                                     cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Nama</th>
-                                            <th>Jenis</th>
+                                            <th>Nama Kriteria</th>
+                                            <th>Jenis Kriteria</th>
                                             <th class="width-10">Bobot</th>
                                             <th class="width-10">Aksi</th>
                                         </tr>
@@ -183,7 +188,7 @@
                                     <label for="editBobotKriteria" class="col-sm-4 col-form-label">Bobot
                                         Kriteria</label>
                                     <div class="col-sm-5">
-                                        <input type="number" class="form-control" id="bobotEdit" name="bobot">
+                                        <input type="number" step="any" class="form-control" id="bobotEdit" name="bobot">
                                     </div>
                                 </div>
                             </form>
@@ -253,7 +258,7 @@
                                     <label for="inputBobotKriteria" class="col-sm-4 col-form-label">Bobot
                                         Kriteria</label>
                                     <div class="col-sm-5">
-                                        <input type="number" class="form-control" id="inputBobotKriteria" name="bobot"
+                                        <input type="number" step="any" class="form-control" id="inputBobotKriteria" name="bobot"
                                             required>
                                     </div>
                                 </div>
@@ -318,12 +323,15 @@
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
+    <!-- Sweetalert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
     <script src="js/modal.js"></script>
     <script type="module" src="./js/kriteria.js"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
 
     <script>
         const submitKriteria = async () => {
@@ -348,15 +356,20 @@
                 }
 
                 Swal.fire({
-                    title: "Good job!",
-                    text: "You clicked the button!",
+                    title: "Sukses",
+                    text: "Data Berhasil Ditambahkan!",
                     icon: "success",
+                    timer: 3000, // durasi dalam milidetik
+                    timerProgressBar: true,
+                }).then((result) => {
+                    // Jika pengguna menekan tombol OK atau timer berakhir
+                    if (result.isConfirmed || result.dismiss === Swal.DismissReason.timer) {
+                        location.reload(); // me-reload halaman
+                    }
                 });
-                setTimeout(() => {
-                    window.location.reload()
-                }, 5000);
-                return { message: 'post data success', data: data,  }
-                
+
+                return { message: 'post data success', data: data, }
+
             } catch (error) {
                 console.log(error)
             }
@@ -387,13 +400,25 @@
                     throw new Error({ message: reponse.statusText })
                 }
 
+                Swal.fire({
+                    title: "Sukses",
+                    text: "Data Berhasil Diubah!",
+                    icon: "success",
+                    timer: 3000, // durasi dalam milidetik
+                    timerProgressBar: true,
+                }).then((result) => {
+                    // Jika pengguna menekan tombol OK atau timer berakhir
+                    if (result.isConfirmed || result.dismiss === Swal.DismissReason.timer) {
+                        location.reload(); // me-reload halaman
+                    }
+                });
+
                 const data = await reponse.json()
                 return { message: 'post data success', data: data }
             } catch (error) {
                 console.log(error)
             }
         }
-
     </script>
 </body>
 

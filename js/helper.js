@@ -114,8 +114,18 @@ export const hapusData = async (url) => {
       throw new Error(`HTTP !error Status : ${reponse.status}`)
     }
 
-    alert('Data berhasil dihapus')
-    location.reload()
+    Swal.fire({
+      title: "Sukses",
+      text: "Data Berhasil Dihapus!",
+      icon: "success",
+      timer: 3000, // durasi dalam milidetik
+      timerProgressBar: true,
+    }).then((result) => {
+      // Jika pengguna menekan tombol OK atau timer berakhir
+      if (result.isConfirmed || result.dismiss === Swal.DismissReason.timer) {
+        location.reload(); // me-reload halaman
+      }
+    });
 
     const deleted = await reponse.json()
     return deleted

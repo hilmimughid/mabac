@@ -59,7 +59,14 @@ document.addEventListener('DOMContentLoaded', async function () {
     deleteButton.setAttribute('data-toggle', 'modal')
     deleteButton.setAttribute('type', 'button')
 
+    const editButton = createButton('bi-pencil-square', 'btn-warning')
+    editButton.classList.add('mx-2')
+    editButton.setAttribute('data-target', '#modalEditAlternatif')
+    editButton.setAttribute('data-toggle', 'modal')
+    editButton.setAttribute('type', 'button')
+
     const tdButton = document.createElement('td')
+    tdButton.appendChild(editButton)
     tdButton.appendChild(deleteButton)
     row.appendChild(tdButton)
 

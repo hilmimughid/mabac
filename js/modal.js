@@ -27,6 +27,10 @@ $(document).ready(function () {
         $("#modalTambahAlternatif").modal("hide");
     });
 
+    $("#buttonIsiAlternatif").click(function () {
+        $("#modalIsiAlternatif").modal("hide");
+    });
+
     $("#buttonHapusSemuaAlternatif").click(function () {
         $("#modalHapusSemuaAlternatif").modal("hide");
     });

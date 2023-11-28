@@ -57,27 +57,32 @@
             <li class="nav-item active">
                 <a class="nav-link" href="matriksX.html">
                     <i class="bi bi-table"></i>
-                    <span>Normalisasi Matriks Keputusan Awal</span></a>
+                    <span>Normalisasi Matriks</span></a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link" href="matriksV.html">
                     <i class="bi bi-table"></i>
-                    <span>Matriks Keputusan Tertimbang (V)</span></a>
+                    <span>Matriks (V)</span></a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link" href="matriksG.html">
                     <i class="bi bi-table"></i>
-                    <span>Matriks Area Perkiraan Batas (G)</span></a>
+                    <span>Matriks (G)</span></a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link" href="matriksQ.html">
                     <i class="bi bi-table"></i>
-                    <span>Matriks Jarak Alternatif (Q)</span></a>
+                    <span>Matriks (Q)</span></a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link" href="peringkat.html">
                     <i class="bi bi-trophy-fill"></i>
                     <span>Peringkat</span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="">
+                    <i class="bi bi-arrow-clockwise"></i>
+                    <span>Reset</span></a>
             </li>
 
             <!-- Divider -->
@@ -124,7 +129,7 @@
                                     cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th class="align-middle" rowspan="2">Nama Alternatif</th>
+                                            <th class="align-middle" rowspan="2">Alternatif</th>
                                             <th id="kriteria">Kriteria</th>
                                         </tr>
                                         <tr id="matrixNilai">
@@ -133,10 +138,12 @@
                                     <tbody id="matrixNilaiBody">
                                     </tbody>
                                 </table>
+                                <button type="button" class="btn btn-danger float-right ml-3" data-toggle="modal"
+                                    data-target="#modalHapusSemuaAlternatif">Hapus Semua Alternatif</button>
                                 <button type="button" class="btn btn-secondary float-right ml-3" data-toggle="modal"
-                                    data-target="#modalIsiAlternatif">Tambah Alternatif</button>
+                                    data-target="#modalIsiAlternatif">Isi Nilai Alternatif</button>
                                 <button type="button" class="btn btn-primary float-right" data-toggle="modal"
-                                    data-target="#modalTambahAlternatif">Isi Nilai Alternatif</button>
+                                    data-target="#modalTambahAlternatif">Tambah Alternatif</button>
                             </div>
                         </div>
                     </div>
@@ -159,33 +166,25 @@
                         <div class="modal-body">
                             <form>
                                 <div class="form-group row">
-                                    <label for="editKodeAlternatif" class="col-sm-4 col-form-label">Kode
-                                        Alternatif</label>
+                                    <label for="editNamaAlternatif" class="col-sm-4 col-form-label">Nama</label>
                                     <div class="col-sm-5">
-                                        <input type="text" class="form-control" id="editKodeAlternatif">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="editNamaAlternatif" class="col-sm-4 col-form-label">Nama
-                                        Alternatif</label>
-                                    <div class="col-sm-5">
-                                        <input type="text" class="form-control" id="editNamaAlternatif">
+                                        <input type="text" class="form-control" id="editNamaAlternatif" name="nama"
+                                            required>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="editKriteria" class="col-sm-4 col-form-label">
                                         Kriteria</label>
                                     <div class="col-sm-5">
-                                        <select class="custom-select" id="editKriteria">
-                                            <option value="c1" selected>C1</option>
-                                            <option value="c2">C2</option>
+                                        <select class="custom-select" id="editKriteria" name="kriteria" required>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="editPenilaian" class="col-sm-4 col-form-label">Penilaian</label>
+                                    <label for="inputPenilaian" class="col-sm-4 col-form-label">Penilaian</label>
                                     <div class="col-sm-5">
-                                        <input type="number" class="form-control" id="editPenilaian">
+                                        <input type="number" step="any" class="form-control" id="inputPenilaian"
+                                            name="nilai" required>
                                     </div>
                                 </div>
                             </form>
@@ -197,7 +196,6 @@
                     </div>
                 </div>
             </div>
-
 
             <!-- Modal Hapus Satu -->
             <div class="modal fade" id="modalHapusSatuAlternatif" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -221,9 +219,40 @@
                 </div>
             </div>
 
-
             <!-- Modal Tambah Alternatif -->
-            <div class="modal fade" id="modalTambahAlternatif" tabindex="-1" aria-labelledby="exampleModalLabel"
+            <div class="modal fade" id="modalTambahAlternatif" data-backdrop="static" data-keyboard="false"
+                tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">Form Tambah Alternatif</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="tambahAlternatif">
+                                <div class="form-group row">
+                                    <label for="inputNamaAlternatif" class="col-sm-4 col-form-label">Nama
+                                        Alternatif</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" id="inputNamaAlternatif" name="nama"
+                                            required>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                            <button type="button" class="btn btn-success" data-dismiss="modal"
+                                id="buttonTambahAlternatif" onclick="submitTambahAlternatif()">Simpan</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Isi Alternatif -->
+            <div class="modal fade" id="modalIsiAlternatif" tabindex="-1" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -237,14 +266,14 @@
                         <div class="modal-body">
                             <form id="isiAlternatif">
                                 <div class="form-group row">
-                                    <label for="inputNamaKriteria" class="col-sm-4 col-form-label">Nama</label>
+                                    <label for="inputNamaIsiAlternatif" class="col-sm-4 col-form-label">Nama</label>
                                     <div class="col-sm-5">
                                         <select class="custom-select" id="formNamaAlternatif" name="nama" required>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="inputKriteria" class="col-sm-4 col-form-label">
+                                    <label for="inputKriteriaIsiAlternatif" class="col-sm-4 col-form-label">
                                         Kriteria</label>
                                     <div class="col-sm-5">
                                         <select class="custom-select" id="formJenisKriteria" name="kriteria" required>
@@ -254,52 +283,42 @@
                                 <div class="form-group row">
                                     <label for="inputPenilaian" class="col-sm-4 col-form-label">Penilaian</label>
                                     <div class="col-sm-5">
-                                        <input type="number" class="form-control" id="inputBobotKriteria" name="nilai"
-                                            required>
+                                        <input type="number" step="any" class="form-control" id="inputPenilaian"
+                                            name="nilai" required>
                                     </div>
                                 </div>
                             </form>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                            <button type="button" class="btn btn-success" onclick="submitAlternatif()">Simpan</button>
+                            <button type="button" class="btn btn-success" id="buttonIsiAlternatif"
+                                onclick="submitAlternatif()">Simpan</button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Modal Isi Alternatif -->
-            <div class="modal fade" id="modalIsiAlternatif" data-backdrop="static" data-keyboard="false" tabindex="-1"
-                aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <!-- Modal Hapus Semua -->
+            <div class="modal fade" id="modalHapusSemuaAlternatif" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="staticBackdropLabel">Form Tambah Alternatif</h5>
+                            <h5 class="modal-title" id="staticBackdropLabel">Peringatan!</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form id="tambahAlternatif">
-                                <div class="form-group row">
-                                    <label for="inputNamaKriteria" class="col-sm-4 col-form-label">Nama
-                                        Alternatif</label>
-                                    <div class="col-sm-5">
-                                        <input type="text" class="form-control" id="inputNamaKriteria" name="nama"
-                                            required>
-                                    </div>
-                                </div>
-                            </form>
+                            <p>Apakah anda yakin ingin menghapus semua alternatif?</p>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                            <button type="button" class="btn btn-success" data-dismiss="modal" id="#modalIsiAlternatif"
-                                onclick="submitTambahAlternatif()">Simpan</button>
+                            <button type="button" class="btn btn-danger" id="buttonHapusSemuaAlternatif">Yakin</button>
                         </div>
                     </div>
                 </div>
             </div>
-
 
             <!-- Footer -->
             <footer class="sticky-footer bg-white">
@@ -329,9 +348,12 @@
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
+    <!-- Sweetalert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
-
+    <script src="js/modal.js"></script>
     <script type="module" src="./js/alternatif.js"></script>
 
     <script>
@@ -360,8 +382,18 @@
 
                 const data = await reponse.json()
 
-                alert('Alternatif berhasil diisi')
-                location.reload()
+                Swal.fire({
+                    title: "Sukses",
+                    text: "Data Berhasil Ditambahkan!",
+                    icon: "success",
+                    timer: 3000, // durasi dalam milidetik
+                    timerProgressBar: true,
+                }).then((result) => {
+                    // Jika pengguna menekan tombol OK atau timer berakhir
+                    if (result.isConfirmed || result.dismiss === Swal.DismissReason.timer) {
+                        location.reload(); // me-reload halaman
+                    }
+                });
 
                 return { message: 'post data success', data: data }
             } catch (error) {
@@ -388,8 +420,20 @@
                 if (!reponse.ok) {
                     throw new Error({ message: reponse.statusText })
                 }
-                alert('Data berhasil ditambahkan')
-                location.reload()
+
+                Swal.fire({
+                    title: "Sukses",
+                    text: "Data Berhasil Ditambahkan!",
+                    icon: "success",
+                    timer: 3000, // durasi dalam milidetik
+                    timerProgressBar: true,
+                }).then((result) => {
+                    // Jika pengguna menekan tombol OK atau timer berakhir
+                    if (result.isConfirmed || result.dismiss === Swal.DismissReason.timer) {
+                        location.reload(); // me-reload halaman
+                    }
+                });
+
                 const data = await reponse.json()
                 return { message: 'post data success', data: data }
             } catch (error) {
