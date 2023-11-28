@@ -57,7 +57,7 @@
             <li class="nav-item active">
                 <a class="nav-link" href="matriksX.html">
                     <i class="bi bi-table"></i>
-                    <span>Matriks Keputusan Awal (X)</span></a>
+                    <span>Normalisasi Matriks Keputusan Awal</span></a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link" href="matriksV.html">
@@ -124,11 +124,10 @@
                                     cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Alternatif</th>
-                                            <th>Kriteria</th>
+                                            <th class="align-middle" rowspan="2">Nama Alternatif</th>
+                                            <th id="kriteria">Kriteria</th>
                                         </tr>
                                         <tr id="matrixNilai">
-                                            <td></td>
                                         </tr>
                                     </thead>
                                     <tbody id="matrixNilaiBody">
@@ -148,7 +147,7 @@
 
             <!-- Modal Edit Alternatif -->
             <div class="modal fade" id="modalEditAlternatif" tabindex="-1" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
+                aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -202,7 +201,7 @@
 
             <!-- Modal Hapus Satu -->
             <div class="modal fade" id="modalHapusSatuAlternatif" tabindex="-1" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
+                aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -225,7 +224,7 @@
 
             <!-- Modal Tambah Alternatif -->
             <div class="modal fade" id="modalTambahAlternatif" tabindex="-1" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
+                aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -255,7 +254,8 @@
                                 <div class="form-group row">
                                     <label for="inputPenilaian" class="col-sm-4 col-form-label">Penilaian</label>
                                     <div class="col-sm-5">
-                                        <input type="number" class="form-control" id="inputBobotKriteria" name="nilai" required>
+                                        <input type="number" class="form-control" id="inputBobotKriteria" name="nilai"
+                                            required>
                                     </div>
                                 </div>
                             </form>
@@ -279,20 +279,22 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                         <div class="modal-body">
+                        <div class="modal-body">
                             <form id="tambahAlternatif">
                                 <div class="form-group row">
                                     <label for="inputNamaKriteria" class="col-sm-4 col-form-label">Nama
                                         Alternatif</label>
                                     <div class="col-sm-5">
-                                        <input type="text" class="form-control" id="inputNamaKriteria" name="nama" required>
+                                        <input type="text" class="form-control" id="inputNamaKriteria" name="nama"
+                                            required>
                                     </div>
                                 </div>
                             </form>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                            <button type="button" class="btn btn-success" data-dismiss="modal" id="#modalIsiAlternatif" onclick="submitTambahAlternatif()">Simpan</button>
+                            <button type="button" class="btn btn-success" data-dismiss="modal" id="#modalIsiAlternatif"
+                                onclick="submitTambahAlternatif()">Simpan</button>
                         </div>
                     </div>
                 </div>
@@ -309,7 +311,7 @@
             </footer>
             <!-- End of Footer -->
 
-            
+
         </div>
         <!-- End of Content Wrapper -->
     </div>
@@ -335,66 +337,66 @@
     <script>
         const submitAlternatif = async () => {
             try {
-      const formData = new FormData(document.querySelector('#isiAlternatif'))
+                const formData = new FormData(document.querySelector('#isiAlternatif'))
 
-const value = {
-id_alternatif: formData.get('nama'),
-id_kriteria: formData.get('kriteria'),
-nilai: parseInt(formData.get('nilai')),
-}
+                const value = {
+                    id_alternatif: formData.get('nama'),
+                    id_kriteria: formData.get('kriteria'),
+                    nilai: parseInt(formData.get('nilai')),
+                }
 
-    const reponse = await fetch(`https://backend-spk.vercel.app/api/matrix`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(value),
-    })
+                const reponse = await fetch(`https://backend-spk.vercel.app/api/matrix`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(value),
+                })
 
-    if (!reponse.ok) {
-        const error = await reponse.json()
-      throw new Error(error.message)
-    }
+                if (!reponse.ok) {
+                    const error = await reponse.json()
+                    throw new Error(error.message)
+                }
 
-    const data = await reponse.json()
+                const data = await reponse.json()
 
-    alert('Alternatif berhasil diisi')
-    location.reload()
+                alert('Alternatif berhasil diisi')
+                location.reload()
 
-    return { message: 'post data success', data: data }
-  } catch (error) {
-   alert(error.message)
-    return
-  }
-}
-    
-    const submitTambahAlternatif = async () => {
-        try {
-            const formData = new FormData(document.querySelector("#tambahAlternatif"))
-        const value = {
-            nama : formData.get('nama')
+                return { message: 'post data success', data: data }
+            } catch (error) {
+                alert(error.message)
+                return
+            }
         }
 
-        const reponse = await fetch('https://backend-spk.vercel.app/api/alternatif', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-    },
-        body: JSON.stringify(value),
-    })
+        const submitTambahAlternatif = async () => {
+            try {
+                const formData = new FormData(document.querySelector("#tambahAlternatif"))
+                const value = {
+                    nama: formData.get('nama')
+                }
 
-        if (!reponse.ok) {
-        throw new Error({ message: reponse.statusText })
-    }
-    alert('Data berhasil ditambahkan')
-    location.reload()
-    const data = await reponse.json()
-return { message: 'post data success', data: data }
-        } catch (error) {
-            console.log(error)
-            return 
+                const reponse = await fetch('https://backend-spk.vercel.app/api/alternatif', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(value),
+                })
+
+                if (!reponse.ok) {
+                    throw new Error({ message: reponse.statusText })
+                }
+                alert('Data berhasil ditambahkan')
+                location.reload()
+                const data = await reponse.json()
+                return { message: 'post data success', data: data }
+            } catch (error) {
+                console.log(error)
+                return
+            }
         }
-    }
     </script>
 </body>
 

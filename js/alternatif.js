@@ -11,9 +11,12 @@ document.addEventListener('DOMContentLoaded', async function () {
   const dataAlternatif = await ambilData('alternatif')
   const dataKriteria = await await ambilData('kriteria')
   const dataMatrix = await ambilData('matrix')
-  console.log('dataMatrix', dataMatrix)
+  console.log('dataKriteria', dataKriteria)
 
+  const tdKriteria = document.querySelector('#kriteria')
+  const colspan = dataKriteria.length + 1
   dataKriteria.forEach((item) => {
+    tdKriteria.setAttribute('colspan', colspan);
     const td = document.createElement('td')
     td.textContent = item.nama
     tHead.appendChild(td)
@@ -58,7 +61,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     const tdButton = document.createElement('td')
     tdButton.appendChild(deleteButton)
-    row.appendChild(deleteButton)
+    row.appendChild(tdButton)
 
     tBody.appendChild(row)
   })

@@ -8,9 +8,12 @@ document.addEventListener('DOMContentLoaded', async function () {
   const batas = await ambilData('result?tipe=batas')
   console.log('batas', batas)
 
+  const tdKriteria = document.querySelector('#kriteria')
+  const colspan = dataKriteria.length + 1
   dataKriteria.forEach((item, index) => {
+    tdKriteria.setAttribute('colspan', colspan);
     const td = document.createElement('td')
-    td.textContent = 'K' + index
+    td.textContent = 'K' + (index+1)
     tHead.appendChild(td)
   })
 

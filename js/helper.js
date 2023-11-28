@@ -44,7 +44,7 @@ export function deleteRow(id, url) {
   const yakinButton = document.querySelector(`#buttonHapusSatu${idBUtton}`)
 
   yakinButton.addEventListener('click', () => {
-    hapusData(`http://localhost:8000/api/${url}/${id}`)
+    hapusData(`https://backend-spk.vercel.app/api/${url}/${id}`)
   })
 }
 

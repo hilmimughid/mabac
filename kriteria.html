@@ -57,7 +57,7 @@
             <li class="nav-item active">
                 <a class="nav-link" href="matriksX.html">
                     <i class="bi bi-table"></i>
-                    <span>Matriks Keputusan Awal (X)</span></a>
+                    <span>Normalisasi Matriks Keputusan Awal</span></a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link" href="matriksV.html">
@@ -190,7 +190,8 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                            <button type="button" class="btn btn-success" id="buttonEditKriteria" onclick="simpanPerubahan()">Simpan</button>
+                            <button type="button" class="btn btn-success" id="buttonEditKriteria"
+                                onclick="simpanPerubahan()">Simpan</button>
                         </div>
                     </div>
                 </div>
@@ -320,70 +321,78 @@
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
     <script src="js/modal.js"></script>
-
     <script type="module" src="./js/kriteria.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script>
-         const submitKriteria = async () => {
-  try {
-    const formData = new FormData(document.querySelector('#tambahKriteria'))
+        const submitKriteria = async () => {
+            try {
+                const formData = new FormData(document.querySelector('#tambahKriteria'))
 
-    const value = {
-      nama: formData.get('nama'),
-      bobot: formData.get('bobot'),
-      jenis: formData.get('jenis'),
-    }
-    const reponse = await fetch('https://backend-spk.vercel.app/api/kriteria', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(value),
-    })
+                const value = {
+                    nama: formData.get('nama'),
+                    bobot: formData.get('bobot'),
+                    jenis: formData.get('jenis'),
+                }
+                const reponse = await fetch('https://backend-spk.vercel.app/api/kriteria', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(value),
+                })
 
-    if (!reponse.ok) {
-      throw new Error({ message: reponse.statusText })
-    }
+                if (!reponse.ok) {
+                    throw new Error({ message: reponse.statusText })
+                }
 
-    alert('Kriteria berhasil ditambahkan!!')
-    location.reload()
-    
-    return { message: 'post data success', data: data }
-  } catch (error) {
-    console.log(error)
-  }
-}
+                Swal.fire({
+                    title: "Good job!",
+                    text: "You clicked the button!",
+                    icon: "success",
+                });
+                setTimeout(() => {
+                    window.location.reload()
+                }, 5000);
+                return { message: 'post data success', data: data,  }
+                
+            } catch (error) {
+                console.log(error)
+            }
+        }
 
-const simpanPerubahan = async () => {
-  try {
-    const formData = new FormData(document.querySelector('#formEdit'))
-    const id = formData.get('id')
-    console.log('id',id)
+        const simpanPerubahan = async () => {
+            try {
+                const formData = new FormData(document.querySelector('#formEdit'))
+                const id = formData.get('id')
+                console.log('id', id)
 
-    const value = {
-      nama: formData.get('nama'),
-      bobot: formData.get('bobot'),
-      jenis: formData.get('jenis'),
-    }
-    console.log('value',value)
+                const value = {
+                    nama: formData.get('nama'),
+                    bobot: formData.get('bobot'),
+                    jenis: formData.get('jenis'),
+                }
+                console.log('value', value)
 
-    const reponse = await fetch(`https://backend-spk.vercel.app/api/kriteria/${id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(value),
-    })
+                const reponse = await fetch(`https://backend-spk.vercel.app/api/kriteria/${id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(value),
+                })
 
-    if (!reponse.ok) {
-      throw new Error({ message: reponse.statusText })
-    }
+                if (!reponse.ok) {
+                    throw new Error({ message: reponse.statusText })
+                }
 
-    const data = await reponse.json()
-    return { message: 'post data success', data: data }
-  } catch (error) {
-    console.log(error)
-  }
-}
+                const data = await reponse.json()
+                return { message: 'post data success', data: data }
+            } catch (error) {
+                console.log(error)
+            }
+        }
 
     </script>
 </body>
