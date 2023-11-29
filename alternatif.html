@@ -164,11 +164,18 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form>
+                            <form id="formEditAlternatif">
+                                <div class="form-group row d-none">
+                                    <label for="editNamaAlternatif" class="col-sm-4 col-form-label">Nama</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" id="idAltenatif" name="id"
+                                            required>
+                                    </div>
+                                </div>
                                 <div class="form-group row">
                                     <label for="editNamaAlternatif" class="col-sm-4 col-form-label">Nama</label>
                                     <div class="col-sm-5">
-                                        <input type="text" class="form-control" id="editNamaAlternatif" name="nama"
+                                        <input type="text" class="form-control" id="inputEditAlternatif" name="nama"
                                             required>
                                     </div>
                                 </div>
@@ -176,14 +183,14 @@
                                     <label for="editKriteria" class="col-sm-4 col-form-label">
                                         Kriteria</label>
                                     <div class="col-sm-5">
-                                        <select class="custom-select" id="editKriteria" name="kriteria" required>
+                                        <select class="custom-select" id="selectEditAlternatif" name="kriteria" required>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="inputPenilaian" class="col-sm-4 col-form-label">Penilaian</label>
                                     <div class="col-sm-5">
-                                        <input type="number" step="any" class="form-control" id="inputPenilaian"
+                                        <input type="number" step="any" class="form-control" id="penilaianEditAlternatif"
                                             name="nilai" required>
                                     </div>
                                 </div>
@@ -191,7 +198,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                            <button type="button" class="btn btn-success" id="buttonEditAlternatif">Simpan</button>
+                            <button type="button" class="btn btn-success" id="buttonEditAlternatif" onclick="simpanFormEdit()">Simpan</button>
                         </div>
                     </div>
                 </div>
@@ -439,6 +446,39 @@
             } catch (error) {
                 console.log(error)
                 return
+            }
+        }
+
+        const simpanFormEdit = async () => {
+            try {
+                const formData = new FormData(document.querySelector('#formEditAlternatif'))
+                const value = {
+                    id_alternatif : formData.get('id'),
+                    id_kriteria : formData.get('kriteria'),
+                    nilai : formData.get('nilai')
+                }
+
+                const reponse = await fetch(`https://backend-spk.vercel.app/api/matrix/edit`, {
+                    method : "POST",
+                    headers : {
+                        'Content-Type': 'application/json',
+                    },
+                    body : JSON.stringify(value)
+                })
+                Swal.fire({
+                    title: "Sukses",
+                    text: "Data Berhasil Diubah!",
+                    icon: "success",
+                    timer: 3000, // durasi dalam milidetik
+                    timerProgressBar: true,
+                }).then((result) => {
+                    // Jika pengguna menekan tombol OK atau timer berakhir
+                    if (result.isConfirmed || result.dismiss === Swal.DismissReason.timer) {
+                        location.reload(); // me-reload halaman
+                    }
+                });
+            } catch (error) {
+                console.log(error)
             }
         }
     </script>

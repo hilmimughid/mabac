@@ -48,6 +48,30 @@ export function deleteRow(id, url) {
   })
 }
 
+export function editRowAlternatif(item, url) {
+  const inputNamaAlternatif = document.querySelector('#inputEditAlternatif')
+  const idAlternatif = document.querySelector('#idAltenatif')
+  idAlternatif.value = item.id_alternatif
+  inputNamaAlternatif.value = item.nama_alternatif
+
+  const selectNamaAlternatif = document.querySelector('#selectEditAlternatif')
+  const childrenSelect = selectNamaAlternatif.children
+  const penilaianAlternatif = document.querySelector('#penilaianEditAlternatif')
+  penilaianAlternatif.required = true
+  penilaianAlternatif.value = 0
+
+  if (childrenSelect.length !== 0) {
+    return
+  }
+
+  item.data.forEach((itemData, index) => {
+    let option = document.createElement('option')
+    option.value = itemData.id_kriteria
+    option.text = itemData.nama_kriteria
+    selectNamaAlternatif.appendChild(option)
+  })
+}
+
 export const createOption = (value) => {
   const option = document.createElement('option')
   option.value = value.id
@@ -115,17 +139,17 @@ export const hapusData = async (url) => {
     }
 
     Swal.fire({
-      title: "Sukses",
-      text: "Data Berhasil Dihapus!",
-      icon: "success",
+      title: 'Sukses',
+      text: 'Data Berhasil Dihapus!',
+      icon: 'success',
       timer: 3000, // durasi dalam milidetik
       timerProgressBar: true,
     }).then((result) => {
       // Jika pengguna menekan tombol OK atau timer berakhir
       if (result.isConfirmed || result.dismiss === Swal.DismissReason.timer) {
-        location.reload(); // me-reload halaman
+        location.reload() // me-reload halaman
       }
-    });
+    })
 
     const deleted = await reponse.json()
     return deleted

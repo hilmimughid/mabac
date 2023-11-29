@@ -1,5 +1,12 @@
-import { ambilData } from './helper.js'
-import { createData, createOption, createButton, deleteRow } from './helper.js'
+import {
+  ambilData,
+  createData,
+  createOption,
+  createButton,
+  deleteRow,
+  editRow,
+  editRowAlternatif,
+} from './helper.js'
 
 const select = document.querySelector('#formJenisKriteria')
 const selectNama = document.querySelector('#formNamaAlternatif')
@@ -11,12 +18,11 @@ document.addEventListener('DOMContentLoaded', async function () {
   const dataAlternatif = await ambilData('alternatif')
   const dataKriteria = await await ambilData('kriteria')
   const dataMatrix = await ambilData('matrix')
-  console.log('dataKriteria', dataKriteria)
 
   const tdKriteria = document.querySelector('#kriteria')
   const colspan = dataKriteria.length + 1
   dataKriteria.forEach((item) => {
-    tdKriteria.setAttribute('colspan', colspan);
+    tdKriteria.setAttribute('colspan', colspan)
     const td = document.createElement('td')
     td.textContent = item.nama
     tHead.appendChild(td)
@@ -59,7 +65,10 @@ document.addEventListener('DOMContentLoaded', async function () {
     deleteButton.setAttribute('data-toggle', 'modal')
     deleteButton.setAttribute('type', 'button')
 
-    const editButton = createButton('bi-pencil-square', 'btn-warning')
+    const editButton = createButton('bi-pencil-square', 'btn-warning', () =>
+      editRowAlternatif(item, 'alternatif'),
+    )
+
     editButton.classList.add('mx-2')
     editButton.setAttribute('data-target', '#modalEditAlternatif')
     editButton.setAttribute('data-toggle', 'modal')

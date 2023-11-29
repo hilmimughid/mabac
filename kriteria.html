@@ -379,14 +379,12 @@
             try {
                 const formData = new FormData(document.querySelector('#formEdit'))
                 const id = formData.get('id')
-                console.log('id', id)
 
                 const value = {
                     nama: formData.get('nama'),
                     bobot: formData.get('bobot'),
                     jenis: formData.get('jenis'),
                 }
-                console.log('value', value)
 
                 const reponse = await fetch(`https://backend-spk.vercel.app/api/kriteria/${id}`, {
                     method: 'PUT',
