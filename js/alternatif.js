@@ -17,7 +17,9 @@ const tBody = document.querySelector('#matrixNilaiBody')
 document.addEventListener('DOMContentLoaded', async function () {
   const dataAlternatif = await ambilData('alternatif')
   const dataKriteria = await await ambilData('kriteria')
+  console.log('dataAlternatif', dataAlternatif)
   const dataMatrix = await ambilData('matrix')
+  console.log('dataMatrix', dataMatrix)
 
   const tdKriteria = document.querySelector('#kriteria')
   const colspan = dataKriteria.length + 1
@@ -42,15 +44,21 @@ document.addEventListener('DOMContentLoaded', async function () {
   })
 
   let row
-  dataMatrix.forEach((item, index1) => {
+  let dataTabel = dataMatrix.length !== 0 ? dataMatrix : dataAlternatif
+
+  dataTabel.forEach((item, index1) => {
     row = document.createElement('tr')
-    const td = createData(item.nama_alternatif)
+
+    let nama = dataMatrix.length !== 0 ? item.nama_alternatif : item.nama
+
+    const td = createData(nama)
+    console.log('td', td)
     row.appendChild(td)
 
     dataKriteria.forEach((item, index2) => {
       const td = document.createElement('td')
-      const matrixData = dataMatrix[index1]?.data[index2] // Use optional chaining to handle potential undefined
-      const tdNilai = matrixData?.nilai // Use optional chaining again
+      const matrixData = dataMatrix[index1]?.data[index2]
+      const tdNilai = matrixData?.nilai
 
       td.textContent = tdNilai !== undefined ? tdNilai : ''
 
@@ -65,6 +73,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     deleteButton.setAttribute('data-toggle', 'modal')
     deleteButton.setAttribute('type', 'button')
 
+    console.log('item', item)
     const editButton = createButton('bi-pencil-square', 'btn-warning', () =>
       editRowAlternatif(item, 'alternatif'),
     )

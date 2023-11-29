@@ -82,7 +82,7 @@
             <li class="nav-item active">
                 <a class="nav-link" href="">
                     <i class="bi bi-arrow-clockwise"></i>
-                    <span>Reset</span></a>
+                    <span id="reset">Reset</span></a>
             </li>
 
             <!-- Divider -->
@@ -220,7 +220,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                            <button type="button" class="btn btn-danger" id="buttonHapusSatuAlternatif">Yakin</button>
+                            <button type="button" class="btn btn-danger" id="buttonHapusSatuAlternatif" >Yakin</button>
                         </div>
                     </div>
                 </div>
@@ -321,7 +321,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                            <button type="button" class="btn btn-danger" id="buttonHapusSemuaAlternatif">Yakin</button>
+                            <button type="button" class="btn btn-danger" id="buttonHapusSemuaAlternatif" onclick="hapusSemuaKriteria()">Yakin</button>
                         </div>
                     </div>
                 </div>
@@ -477,6 +477,24 @@
                         location.reload(); // me-reload halaman
                     }
                 });
+            } catch (error) {
+                console.log(error)
+            }
+        }
+
+        const hapusSemuaKriteria = async () => {
+            console.log('hai hapus alternatif')
+            try {
+                const reponse = await fetch ('https://backend-spk.vercel.app/api/alternatif/delete', {
+                    method : "DELETE",
+                    headers : {
+                        'Content-Type' : 'application/json'
+                    }
+                })
+
+                if (!reponse.ok) {
+                    throw new Error ("Error")
+                }
             } catch (error) {
                 console.log(error)
             }

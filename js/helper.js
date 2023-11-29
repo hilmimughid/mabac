@@ -15,6 +15,7 @@ export function createTableCell(text) {
 }
 
 export const createData = (value) => {
+  console.log('value', value)
   const td = document.createElement('td')
   td.textContent = value
   return td
@@ -52,7 +53,8 @@ export function editRowAlternatif(item, url) {
   const inputNamaAlternatif = document.querySelector('#inputEditAlternatif')
   const idAlternatif = document.querySelector('#idAltenatif')
   idAlternatif.value = item.id_alternatif
-  inputNamaAlternatif.value = item.nama_alternatif
+  inputNamaAlternatif.value =
+    item.nama_alternatif !== undefined ? item.nama_alternatif : item.nama
 
   const selectNamaAlternatif = document.querySelector('#selectEditAlternatif')
   const childrenSelect = selectNamaAlternatif.children
@@ -61,6 +63,10 @@ export function editRowAlternatif(item, url) {
   penilaianAlternatif.value = 0
 
   if (childrenSelect.length !== 0) {
+    return
+  }
+
+  if (item.data === undefined) {
     return
   }
 
@@ -155,6 +161,5 @@ export const hapusData = async (url) => {
     return deleted
   } catch (error) {
     console.log(error)
-    throw error
   }
 }
