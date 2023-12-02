@@ -79,11 +79,6 @@
                     <i class="bi bi-trophy-fill"></i>
                     <span>Peringkat</span></a>
             </li>
-            <li class="nav-item active">
-                <span class="nav-link" href="" onclick="resetData()">
-                    <i class="bi bi-arrow-clockwise"></i>
-                    <span >Reset</span></span>
-            </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -430,6 +425,19 @@
                 if (!response.ok) {
                     throw new Error ("Error")
                 }
+
+                Swal.fire({
+                    title: "Sukses",
+                    text: "Data Berhasil Dihapus!",
+                    icon: "success",
+                    timer: 3000, // durasi dalam milidetik
+                    timerProgressBar: true,
+                }).then((result) => {
+                    // Jika pengguna menekan tombol OK atau timer berakhir
+                    if (result.isConfirmed || result.dismiss === Swal.DismissReason.timer) {
+                        location.reload(); // me-reload halaman
+                    }
+                });
 
             } catch (error) {
                 console.log(error)
