@@ -50,9 +50,12 @@ export function deleteRow(id, url) {
 }
 
 export function editRowAlternatif(item, url) {
+  console.log('item', item)
   const inputNamaAlternatif = document.querySelector('#inputEditAlternatif')
   const idAlternatif = document.querySelector('#idAltenatif')
-  idAlternatif.value = item.id_alternatif
+  console.log('idAlternatif', idAlternatif)
+  const id = item.id_alternatif ? item.id_alternatif : item.id
+  idAlternatif.value = id
   inputNamaAlternatif.value =
     item.nama_alternatif !== undefined ? item.nama_alternatif : item.nama
 

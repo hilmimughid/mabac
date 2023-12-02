@@ -371,7 +371,7 @@
                 const value = {
                     id_alternatif: formData.get('nama'),
                     id_kriteria: formData.get('kriteria'),
-                    nilai: parseInt(formData.get('nilai')),
+                    nilai: formData.get('nilai'),
                 }
 
                 const reponse = await fetch(`https://backend-spk.vercel.app/api/matrix`, {
@@ -452,19 +452,41 @@
         const simpanFormEdit = async () => {
             try {
                 const formData = new FormData(document.querySelector('#formEditAlternatif'))
-                const value = {
+                console.log('formData',formData)
+                let value = ''
+
+                let reponse = ''
+                if (value.id_kriteria) {
+                    value = {
                     id_alternatif : formData.get('id'),
                     id_kriteria : formData.get('kriteria'),
                     nilai : formData.get('nilai')
                 }
+                console.log(formData.get('nama'))
+                throw new Error('')
 
-                const reponse = await fetch(`https://backend-spk.vercel.app/api/matrix/edit`, {
+                    reponse = await fetch(`https://backend-spk.vercel.app/api/matrix/edit`, {
                     method : "POST",
                     headers : {
                         'Content-Type': 'application/json',
                     },
                     body : JSON.stringify(value)
                 })
+                } else {
+                    const id = formData.get('id')
+                    console.log('id',id)
+                    value = {
+                        nama : formData.get('nama')
+                    }
+                    reponse = await fetch(`https://backend-spk.vercel.app/api/alternatif/${id}`, {
+                    method : "PUT",
+                    headers : {
+                        'Content-Type': 'application/json',
+                    },
+                    body : JSON.stringify(value)
+                })
+                }
+                
                 Swal.fire({
                     title: "Sukses",
                     text: "Data Berhasil Diubah!",
