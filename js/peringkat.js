@@ -1,10 +1,18 @@
-import { ambilData, createData, urutkanTerbesar } from './helper.js'
+import { ambilData, createData, urutkanTerbesar, buatPDF } from './helper.js'
 
 const tBody = document.querySelector('#matrixNilaiBody')
 
+const buttonPDF = document.querySelector('#pdfButton')
+
+buttonPDF.addEventListener('click', () => {
+  const { jsPDF } = window.jspdf
+  const doc = new jsPDF()
+  doc.autoTable({ html: '#pdfTable' })
+  doc.save('table.pdf')
+})
+
 document.addEventListener('DOMContentLoaded', async function () {
   const hasil = await ambilData('result?tipe=hasil')
-  console.log('hasil', hasil)
   const hasilUrut = urutkanTerbesar(hasil)
 
   hasilUrut.forEach((item, index) => {

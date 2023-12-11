@@ -15,7 +15,6 @@ export function createTableCell(text) {
 }
 
 export const createData = (value) => {
-  console.log('value', value)
   const td = document.createElement('td')
   td.textContent = value
   return td
@@ -165,4 +164,32 @@ export const hapusData = async (url) => {
   } catch (error) {
     console.log(error)
   }
+}
+
+export const buatPDF = (idTable, pdf) => {
+  const source = document.getElementById(idTable)
+  const specialElementHandlers = {
+    '#bypassme': function (element, renderer) {
+      return true
+    },
+  }
+  const margins = {
+    top: 80,
+    bottom: 60,
+    left: 40,
+    width: 522,
+  }
+  pdf.fromHTML(
+    source,
+    margins.left,
+    margins.top,
+    {
+      width: margins.width,
+      elementHandlers: specialElementHandlers,
+    },
+    function (dispose) {
+      pdf.save('Test.pdf')
+    },
+    margins,
+  )
 }
