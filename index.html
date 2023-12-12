@@ -125,24 +125,32 @@
 
 
                     <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-black text-center">Matriks Area Perkiraan Batas (G)</h6>
-                        </div>
+                    <div class="card shadow">
+                        
                         <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered text-center" id="dataTable" width="100%"
-                                    cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th id="kriteria">Kriteria</th>
-                                        </tr>
-                                        <tr id="matrixNilai">
-                                        </tr>
-                                    </thead>
-                                    <tbody id="matrixNilaiBody">
-                                    </tbody>
-                                </table>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-borderless text-center" width="100%"
+                                        cellspacing="0">
+                                        <tbody id="matrixNilaiBody">
+                                            <tr>
+                                                <td><a class="nav-link text-danger" href="jurnal.html"><i class="bi bi-file-earmark-text-fill fa-4x"></i><br>Jurnal</a></td>
+                                                <td><a class="nav-link text-success" href="excel.html"><i class="bi bi-file-earmark-text-fill fa-4x"></i><br>Excel</a></td>
+                                                <td><a class="nav-link" href="kriteria.html"><i class="bi bi-plus-square-fill fa-4x"></i><br>Kriteria</a></td>
+                                                <td><a class="nav-link" href="alternatif.html"><i class="bi bi-plus-square-fill fa-4x"></i><br>Alternatif</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="pt-5"><a class="nav-link text-dark" href="normalisasi.html"><i class="bi bi-table fa-4x"></i><br>Normalisasi Matriks</a></td>
+                                                <td class="pt-5"><a class="nav-link text-dark" href="matriksV.html"><i class="bi bi-table fa-4x"></i><br>Matriks (V)</a></td>
+                                                <td class="pt-5"><a class="nav-link text-dark" href="matriksG.html"><i class="bi bi-table fa-4x"></i><br>Matriks (G)</a></td>
+                                                <td class="pt-5"><a class="nav-link text-dark" href="matriksQ.html"><i class="bi bi-table fa-4x"></i><br>Matriks (Q)</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="pt-5" colspan="4"><a class="nav-link text-warning" href="peringkat.html"><i class="bi bi-trophy-fill fa-4x"></i><br>Peringkat</a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -161,7 +169,7 @@
             </footer>
             <!-- End of Footer -->
 
-            
+
         </div>
         <!-- End of Content Wrapper -->
     </div>
@@ -179,12 +187,7 @@
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
-
-    <!-- <script type="module" src="./js/alternatif/app.js"></script> -->
-    <script type="module" src="./js/matrixG.js"></script>
-
 </body>
 
 </html>
