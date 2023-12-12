@@ -25,8 +25,6 @@ export function createRow(item) {
 
   const tdActions = document.createElement('td')
 
-  //   console.log('tr', tr)
-  //   console.log('td', tdActions)
   return tr
 }
 
