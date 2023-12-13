@@ -458,19 +458,15 @@
         const simpanFormEdit = async () => {
             try {
                 const formData = new FormData(document.querySelector('#formEditAlternatif'))
-                console.log('formData',formData)
-                let value = ''
-
-                let reponse = ''
-                if (value.id_kriteria) {
-                    value = {
+                // console.log('formData',formData)
+                let value = {
                     id_alternatif : formData.get('id'),
                     id_kriteria : formData.get('kriteria'),
                     nilai : formData.get('nilai')
                 }
-                console.log(formData.get('nama'))
-                throw new Error('')
 
+                let reponse = ''
+                if (value.id_kriteria) {
                     reponse = await fetch(`https://backend-spk.vercel.app/api/matrix/edit`, {
                     method : "POST",
                     headers : {
